@@ -39,6 +39,7 @@ dependencies:
   json_annotation: ^4.6.0
   build_runner: ^2.2.0
   flutter_riverpod: ^1.0.4
+  beamer: ^1.5.0
 
 dev_dependencies:
   flutter_test:
