@@ -1,7 +1,7 @@
 import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
 import 'package:networkhub/routes/routes.dart';
-
+import '../features/channel/location.dart';
 import '../features/index/location.dart';
 
 class AppRouter {
@@ -14,6 +14,7 @@ class AppRouter {
     locationBuilder: BeamerLocationBuilder(
       beamLocations: [
         IndexLocation(),
+        ChannelsLocation(),
       ],
     ),
     initialPath: Routes.index,
