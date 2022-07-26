@@ -6,6 +6,7 @@ class Routes {
   static const resetPassword = '/resetPassword';
   static const onboarding = '/onboarding';
   static const index = '/index';
+  static const dashboard = '/dashboard';
   static const channelIndex = '/channelIndex';
   static const channelDetail = '/channelDetail';
 }

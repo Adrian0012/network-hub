@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 
 import '../../../routes/routes.dart';
 
-class ChannelIndexScreen extends StatefulWidget {
-  const ChannelIndexScreen({Key? key}) : super(key: key);
+class DashboardScreen extends StatefulWidget {
+  const DashboardScreen({Key? key}) : super(key: key);
 
   @override
-  State<ChannelIndexScreen> createState() => _ChannelIndexScreenState();
+  State<DashboardScreen> createState() => _DashboardScreenState();
 }
 
-class _ChannelIndexScreenState extends State<ChannelIndexScreen> {
+class _DashboardScreenState extends State<DashboardScreen> {
   final int _selectedIndex = 1;
   static const List<Widget> _widgetOptions = <Widget>[
     Text('Search Page',
@@ -25,8 +25,7 @@ class _ChannelIndexScreenState extends State<ChannelIndexScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: const Text('Channel Index'),
-          backgroundColor: Colors.purpleAccent),
+          title: const Text('Dashboard'), backgroundColor: Colors.purpleAccent),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),

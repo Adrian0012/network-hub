@@ -1,6 +1,8 @@
+import 'package:beamer/beamer.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
+import 'package:networkhub/routes/routes.dart';
 
 class IndexScreen extends StatefulWidget {
   const IndexScreen({Key? key}) : super(key: key);
@@ -11,12 +13,6 @@ class IndexScreen extends StatefulWidget {
 
 class _IndexScreenState extends State<IndexScreen> {
   final introKey = GlobalKey<_IndexScreenState>();
-
-  void _onIntroEnd(context) {
-    Navigator.of(context).push(
-      MaterialPageRoute(builder: (_) => HomePage()),
-    );
-  }
 
   Widget _buildFullscreenImage() {
     return Image.asset(
@@ -64,7 +60,7 @@ class _IndexScreenState extends State<IndexScreen> {
             'Let\'s go right away!',
             style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
           ),
-          onPressed: () => _onIntroEnd(context),
+          onPressed: () => Beamer.of(context).beamToNamed(Routes.dashboard),
         ),
       ),
       pages: [
@@ -140,7 +136,7 @@ class _IndexScreenState extends State<IndexScreen> {
           reverse: true,
         ),
       ],
-      onDone: () => _onIntroEnd(context),
+      onDone: () => Beamer.of(context).beamToNamed(Routes.dashboard),
       //onSkip: () => _onIntroEnd(context), // You can override onSkip callback
       showSkipButton: false,
       skipOrBackFlex: 0,
@@ -170,62 +166,6 @@ class _IndexScreenState extends State<IndexScreen> {
           borderRadius: BorderRadius.all(Radius.circular(8.0)),
         ),
       ),
-    );
-  }
-}
-
-// class _IndexScreenState extends State<IndexScreen> {
-//   final int _selectedIndex = 1;
-//   static const List<Widget> _widgetOptions = <Widget>[
-//     Text('Search Page',
-//         style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold)),
-//     Text('Home Page',
-//         style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold)),
-//     Text('Profile Page',
-//         style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold)),
-//   ];
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//           title: const Text('Index Screen'),
-//           backgroundColor: Colors.purpleAccent),
-//       body: listPagesViewModel,
-//       bottomNavigationBar: BottomNavigationBar(
-//           items: const <BottomNavigationBarItem>[
-//             BottomNavigationBarItem(
-//                 icon: Icon(Icons.wechat_sharp),
-//                 label: 'Chat Rooms',
-//                 backgroundColor: Colors.yellow),
-//             BottomNavigationBarItem(
-//               icon: Icon(Icons.home),
-//               label: 'Home',
-//               backgroundColor: Colors.green,
-//             ),
-//           ],
-//           type: BottomNavigationBarType.shifting,
-//           currentIndex: _selectedIndex,
-//           selectedItemColor: Colors.black,
-//           iconSize: 40,
-//           onTap: (index) {
-//             if (index == 0) {
-//               Beamer.of(context).beamToNamed(Routes.chats);
-//             }
-//           },
-//           elevation: 5),
-//     );
-//   }
-// }
-
-class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Home')),
-      body: const Center(child: Text("This is the screen after Introduction")),
     );
   }
 }

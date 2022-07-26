@@ -25,8 +25,7 @@ class _ChannelDetailScreenState extends State<ChannelDetailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: const Text('Chats Screen'),
-          backgroundColor: Colors.purpleAccent),
+          title: const Text('Dragons'), backgroundColor: Colors.purpleAccent),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),

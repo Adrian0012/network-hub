@@ -1,5 +1,6 @@
 import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
+import 'package:networkhub/features/dashboard/location.dart';
 import 'package:networkhub/routes/routes.dart';
 import '../features/channel/location.dart';
 import '../features/index/location.dart';
@@ -15,6 +16,7 @@ class AppRouter {
       beamLocations: [
         IndexLocation(),
         ChannelsLocation(),
+        DashboardLocation(),
       ],
     ),
     initialPath: Routes.index,
