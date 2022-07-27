@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:networkhub/models/user.dart';
+import 'package:networkhub/modules/user/models/user.dart';
 
 part 'channel_message.g.dart';
 

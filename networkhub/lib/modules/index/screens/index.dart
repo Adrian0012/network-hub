@@ -2,7 +2,7 @@ import 'package:beamer/beamer.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
-import 'package:networkhub/routes/routes.dart';
+import 'package:networkhub/config/urls.dart';
 
 class IndexScreen extends StatefulWidget {
   const IndexScreen({Key? key}) : super(key: key);

@@ -1,8 +1,7 @@
 import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
-import 'package:networkhub/features/index/screens/index.dart';
-
-import '../../routes/routes.dart';
+import 'package:networkhub/config/urls.dart';
+import 'package:networkhub/modules/index/screens/index.dart';
 
 class IndexLocation extends BeamLocation<BeamState> {
   @override

@@ -1,9 +1,9 @@
 import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
-import 'package:networkhub/features/dashboard/location.dart';
-import 'package:networkhub/routes/routes.dart';
-import '../features/channel/location.dart';
-import '../features/index/location.dart';
+import 'package:networkhub/config/urls.dart';
+import 'package:networkhub/modules/channel/location.dart';
+import 'package:networkhub/modules/dashboard/location.dart';
+import 'package:networkhub/modules/index/location.dart';
 
 class AppRouter {
   static final scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();

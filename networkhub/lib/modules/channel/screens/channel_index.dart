@@ -1,7 +1,6 @@
 import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
-
-import '../../../routes/routes.dart';
+import 'package:networkhub/config/urls.dart';
 
 class ChannelIndexScreen extends StatefulWidget {
   const ChannelIndexScreen({Key? key}) : super(key: key);

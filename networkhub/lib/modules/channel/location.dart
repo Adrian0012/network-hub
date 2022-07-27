@@ -1,10 +1,9 @@
 import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
-import 'package:networkhub/features/channel/screens/channel_detail.dart';
-import 'package:networkhub/features/channel/screens/channel_index.dart';
-import 'package:networkhub/features/dashboard/screens/dashboard.dart';
-
-import '../../routes/routes.dart';
+import 'package:networkhub/config/urls.dart';
+import 'package:networkhub/modules/channel/screens/channel_detail.dart';
+import 'package:networkhub/modules/channel/screens/channel_index.dart';
+import 'package:networkhub/modules/dashboard/screens/dashboard.dart';
 
 class ChannelsLocation extends BeamLocation<BeamState> {
   @override

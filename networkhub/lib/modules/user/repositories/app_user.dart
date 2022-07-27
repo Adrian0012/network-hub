@@ -1,5 +1,6 @@
-import '../db/base_api_db.dart';
-import '../models/user.dart';
+import 'package:networkhub/modules/user/models/user.dart';
+import 'package:networkhub/utils/services/rest_api_service.dart';
+
 import 'app_user_interface.dart';
 
 class AppuserRepository implements IAppuserRepository {

@@ -1,6 +1,6 @@
 import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
-import 'package:networkhub/routes/router.dart';
+import 'package:networkhub/config/router.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
