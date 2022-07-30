@@ -12,7 +12,7 @@ Appuser _$AppuserFromJson(Map<String, dynamic> json) => Appuser(
       json['country'] as String,
       json['authToken'] as String,
       json['profilePicture'] as String,
-      id: json['id'] as String,
+      id: json['id'] as int,
       email: json['email'] as String,
     );
 
