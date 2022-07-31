@@ -4,4 +4,5 @@ class RestApiUrls {
   static String getTestUsers =
       'https://d870-5-42-133-2.ngrok.io/get_test_users';
   static String getChannels = 'https://6c82-5-42-133-2.ngrok.io/channels';
+  static String getStats = 'https://6c82-5-42-133-2.ngrok.io/stats';
 }

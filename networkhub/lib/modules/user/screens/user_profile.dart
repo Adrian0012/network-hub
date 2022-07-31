@@ -36,12 +36,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
             } else {
               return Scrollbar(
                 child: ListView(
+                  restorationId: 'cards_demo_list_view',
                   padding: const EdgeInsets.only(top: 8, left: 8, right: 8),
                   children: [
                     for (final channel in snapshot.data!)
                       Container(
                           margin: const EdgeInsets.only(bottom: 8),
-                          child: ChannelCard(channel: channel)),
+                          child:
+                              TappableTravelDestinationItem(channel: channel)),
                   ],
                 ),
               );
@@ -52,8 +54,53 @@ class _DashboardScreenState extends State<DashboardScreen> {
   }
 }
 
-class ChannelCard extends StatelessWidget {
-  const ChannelCard({
+class NavigationBar extends StatelessWidget {
+  const NavigationBar({
+    Key? key,
+    required int selectedIndex,
+  })  : _selectedIndex = selectedIndex,
+        super(key: key);
+
+  final int _selectedIndex;
+
+  @override
+  Widget build(BuildContext context) {
+    return BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+              icon: Icon(Icons.analytics_rounded),
+              label: 'Stats',
+              backgroundColor: Colors.yellow),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Dashboard',
+            backgroundColor: Colors.green,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.manage_accounts_rounded),
+            label: 'Account',
+            backgroundColor: Colors.green,
+          ),
+        ],
+        type: BottomNavigationBarType.shifting,
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.black,
+        iconSize: 40,
+        onTap: (index) {
+          if (index == 0) {
+            Beamer.of(context).beamToNamed(Routes.dashboard);
+          } else if (index == 1) {
+            Beamer.of(context).beamToNamed(Routes.dashboard);
+          } else if (index == 2) {
+            Beamer.of(context).beamToNamed(Routes.account);
+          }
+        },
+        elevation: 5);
+  }
+}
+
+class TappableTravelDestinationItem extends StatelessWidget {
+  const TappableTravelDestinationItem({
     Key? key,
     this.shape,
     required this.channel,
@@ -72,7 +119,7 @@ class ChannelCard extends StatelessWidget {
         padding: const EdgeInsets.all(8),
         child: Column(
           children: [
-            ChannelCardTitle(title: channel.name),
+            SectionTitle(title: channel.name),
             SizedBox(
               height: height,
               child: Card(
@@ -83,16 +130,9 @@ class ChannelCard extends StatelessWidget {
                   splashColor:
                       Theme.of(context).colorScheme.onSurface.withOpacity(0.12),
                   highlightColor: Colors.transparent,
-                  child: ChannelCardContent(channel: channel),
+                  child: TravelDestinationContent(channel: channel),
                 ),
               ),
-            ),
-            const Divider(
-              height: 20,
-              thickness: 5,
-              // indent: 20,
-              endIndent: 0,
-              color: Colors.black,
             ),
           ],
         ),
@@ -101,8 +141,8 @@ class ChannelCard extends StatelessWidget {
   }
 }
 
-class ChannelCardTitle extends StatelessWidget {
-  const ChannelCardTitle({
+class SectionTitle extends StatelessWidget {
+  const SectionTitle({
     Key? key,
     required this.title,
   }) : super(key: key);
@@ -121,8 +161,9 @@ class ChannelCardTitle extends StatelessWidget {
   }
 }
 
-class ChannelCardContent extends StatelessWidget {
-  const ChannelCardContent({Key? key, required this.channel}) : super(key: key);
+class TravelDestinationContent extends StatelessWidget {
+  const TravelDestinationContent({Key? key, required this.channel})
+      : super(key: key);
 
   final Channel channel;
 
@@ -187,50 +228,5 @@ class ChannelCardContent extends StatelessWidget {
         ),
       ],
     );
-  }
-}
-
-class NavigationBar extends StatelessWidget {
-  const NavigationBar({
-    Key? key,
-    required int selectedIndex,
-  })  : _selectedIndex = selectedIndex,
-        super(key: key);
-
-  final int _selectedIndex;
-
-  @override
-  Widget build(BuildContext context) {
-    return BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-              icon: Icon(Icons.analytics_rounded),
-              label: 'Stats',
-              backgroundColor: Colors.yellow),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Dashboard',
-            backgroundColor: Colors.green,
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.manage_accounts_rounded),
-            label: 'Account',
-            backgroundColor: Colors.green,
-          ),
-        ],
-        type: BottomNavigationBarType.shifting,
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.black,
-        iconSize: 40,
-        onTap: (index) {
-          if (index == 0) {
-            Beamer.of(context).beamToNamed(Routes.stats);
-          } else if (index == 1) {
-            Beamer.of(context).beamToNamed(Routes.dashboard);
-          } else if (index == 2) {
-            Beamer.of(context).beamToNamed(Routes.account);
-          }
-        },
-        elevation: 5);
   }
 }

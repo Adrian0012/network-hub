@@ -1,34 +1,26 @@
 import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
 import 'package:networkhub/config/urls.dart';
+import 'package:networkhub/modules/stats/controllers/stats_controller.dart';
 
-class ChannelIndexScreen extends StatefulWidget {
-  const ChannelIndexScreen({Key? key}) : super(key: key);
+class StatsScreen extends StatefulWidget {
+  const StatsScreen({Key? key}) : super(key: key);
 
   @override
-  State<ChannelIndexScreen> createState() => _ChannelIndexScreenState();
+  State<StatsScreen> createState() => _StatsScreenState();
 }
 
-class _ChannelIndexScreenState extends State<ChannelIndexScreen> {
-  final int _selectedIndex = 1;
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text('Search Page',
-        style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold)),
-    Text('Home Page',
-        style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold)),
-    Text('Profile Page',
-        style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold)),
-  ];
+class _StatsScreenState extends State<StatsScreen> {
+  final StatsController _statsController = StatsController();
+
+  final int _selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: const Text('Channel Index'),
-          backgroundColor: Colors.purpleAccent),
-      body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
-      ),
+          title: const Text('Stats'), backgroundColor: Colors.purpleAccent),
+      body: Container(),
       bottomNavigationBar: NavigationBar(selectedIndex: _selectedIndex),
     );
   }
@@ -48,12 +40,17 @@ class NavigationBar extends StatelessWidget {
     return BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-              icon: Icon(Icons.wechat_sharp),
-              label: 'Channels',
+              icon: Icon(Icons.analytics_rounded),
+              label: 'Stats',
               backgroundColor: Colors.yellow),
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Dashboard',
+            backgroundColor: Colors.green,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.manage_accounts_rounded),
+            label: 'Account',
             backgroundColor: Colors.green,
           ),
         ],
@@ -63,9 +60,11 @@ class NavigationBar extends StatelessWidget {
         iconSize: 40,
         onTap: (index) {
           if (index == 0) {
-            Beamer.of(context).beamToNamed(Routes.channelIndex);
+            Beamer.of(context).beamToNamed(Routes.stats);
           } else if (index == 1) {
             Beamer.of(context).beamToNamed(Routes.dashboard);
+          } else if (index == 2) {
+            Beamer.of(context).beamToNamed(Routes.account);
           }
         },
         elevation: 5);

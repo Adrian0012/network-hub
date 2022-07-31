@@ -2,19 +2,19 @@ import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
 import 'package:networkhub/config/urls.dart';
 import 'package:networkhub/modules/channel/screens/channel_detail.dart';
-import 'package:networkhub/modules/channel/screens/channel_index.dart';
 import 'package:networkhub/modules/dashboard/screens/dashboard.dart';
+import 'package:networkhub/modules/stats/screens/stats.dart';
 
 class ChannelsLocation extends BeamLocation<BeamState> {
   @override
-  List<String> get pathPatterns => ['${Routes.channelIndex}/*'];
+  List<String> get pathPatterns => ['${Routes.channelDetail}/*'];
 
   @override
   List<BeamPage> buildPages(BuildContext context, BeamState state) => [
         const BeamPage(
-          key: ValueKey('channelIndex'),
-          title: 'channelIndex',
-          child: ChannelIndexScreen(),
+          key: ValueKey('stats'),
+          title: 'stats',
+          child: StatsScreen(),
         ),
         if (state.uri.pathSegments.contains('channelDetail'))
           const BeamPage(

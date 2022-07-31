@@ -4,6 +4,7 @@ import 'package:networkhub/config/urls.dart';
 import 'package:networkhub/modules/channel/location.dart';
 import 'package:networkhub/modules/dashboard/location.dart';
 import 'package:networkhub/modules/index/location.dart';
+import 'package:networkhub/modules/stats/location.dart';
 
 class AppRouter {
   static final scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
@@ -17,6 +18,7 @@ class AppRouter {
         IndexLocation(),
         ChannelsLocation(),
         DashboardLocation(),
+        StatsLocation(),
       ],
     ),
     initialPath: Routes.index,
