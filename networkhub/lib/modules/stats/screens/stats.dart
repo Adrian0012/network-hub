@@ -1,7 +1,6 @@
 import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
 import 'package:networkhub/config/urls.dart';
-import 'package:networkhub/modules/stats/controllers/stats_controller.dart';
 
 class StatsScreen extends StatefulWidget {
   const StatsScreen({Key? key}) : super(key: key);
@@ -11,8 +10,6 @@ class StatsScreen extends StatefulWidget {
 }
 
 class _StatsScreenState extends State<StatsScreen> {
-  final StatsController _statsController = StatsController();
-
   final int _selectedIndex = 0;
 
   @override

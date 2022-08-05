@@ -1,7 +1,6 @@
 import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
 import 'package:networkhub/config/urls.dart';
-import 'package:networkhub/modules/channel/controllers/channel_controller.dart';
 import 'package:networkhub/modules/channel/models/channel.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
@@ -13,8 +12,6 @@ class DashboardScreen extends StatefulWidget {
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
-  final ChannelController _channelController = ChannelController();
-
   final int _selectedIndex = 1;
 
   @override
@@ -22,33 +19,34 @@ class _DashboardScreenState extends State<DashboardScreen> {
     return Scaffold(
       appBar: AppBar(
           title: const Text('Dashboard'), backgroundColor: Colors.purpleAccent),
-      body: FutureBuilder<List<Channel>>(
-          future: _channelController.getAllChannels(),
-          builder: (context, snapshot) {
-            if (!snapshot.hasData) {
-              return Scaffold(
-                  body: Center(
-                child: LoadingAnimationWidget.dotsTriangle(
-                  color: const Color(0xFF1A1A3F),
-                  size: 200,
-                ),
-              ));
-            } else {
-              return Scrollbar(
-                child: ListView(
-                  restorationId: 'cards_demo_list_view',
-                  padding: const EdgeInsets.only(top: 8, left: 8, right: 8),
-                  children: [
-                    for (final channel in snapshot.data!)
-                      Container(
-                          margin: const EdgeInsets.only(bottom: 8),
-                          child:
-                              TappableTravelDestinationItem(channel: channel)),
-                  ],
-                ),
-              );
-            }
-          }),
+      // body: FutureBuilder<List<Channel>>(
+      //     future: _channelController.getAllChannels(),
+      //     builder: (context, snapshot) {
+      //       if (!snapshot.hasData) {
+      //         return Scaffold(
+      //             body: Center(
+      //           child: LoadingAnimationWidget.dotsTriangle(
+      //             color: const Color(0xFF1A1A3F),
+      //             size: 200,
+      //           ),
+      //         ));
+      //       } else {
+      //         return Scrollbar(
+      //           child: ListView(
+      //             restorationId: 'cards_demo_list_view',
+      //             padding: const EdgeInsets.only(top: 8, left: 8, right: 8),
+      //             children: [
+      //               for (final channel in snapshot.data!)
+      //                 Container(
+      //                     margin: const EdgeInsets.only(bottom: 8),
+      //                     child:
+      //                         TappableTravelDestinationItem(channel: channel)),
+      //             ],
+      //           ),
+      //         );
+      //       }
+      //     }),
+      body: Container(),
       bottomNavigationBar: NavigationBar(selectedIndex: _selectedIndex),
     );
   }

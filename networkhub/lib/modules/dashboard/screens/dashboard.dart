@@ -1,7 +1,6 @@
 import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
 import 'package:networkhub/config/urls.dart';
-import 'package:networkhub/modules/channel/controllers/channel_controller.dart';
 import 'package:networkhub/modules/channel/models/channel.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
@@ -13,8 +12,6 @@ class DashboardScreen extends StatefulWidget {
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
-  final ChannelController _channelController = ChannelController();
-
   final int _selectedIndex = 1;
 
   @override
@@ -22,31 +19,32 @@ class _DashboardScreenState extends State<DashboardScreen> {
     return Scaffold(
       appBar: AppBar(
           title: const Text('Dashboard'), backgroundColor: Colors.purpleAccent),
-      body: FutureBuilder<List<Channel>>(
-          future: _channelController.getAllChannels(),
-          builder: (context, snapshot) {
-            if (!snapshot.hasData) {
-              return Scaffold(
-                  body: Center(
-                child: LoadingAnimationWidget.dotsTriangle(
-                  color: const Color(0xFF1A1A3F),
-                  size: 200,
-                ),
-              ));
-            } else {
-              return Scrollbar(
-                child: ListView(
-                  padding: const EdgeInsets.only(top: 8, left: 8, right: 8),
-                  children: [
-                    for (final channel in snapshot.data!)
-                      Container(
-                          margin: const EdgeInsets.only(bottom: 8),
-                          child: ChannelCard(channel: channel)),
-                  ],
-                ),
-              );
-            }
-          }),
+      // body: FutureBuilder<List<Channel>>(
+      //     future: _channelController.getAllChannels(),
+      //     builder: (context, snapshot) {
+      //       if (!snapshot.hasData) {
+      //         return Scaffold(
+      //             body: Center(
+      //           child: LoadingAnimationWidget.dotsTriangle(
+      //             color: const Color(0xFF1A1A3F),
+      //             size: 200,
+      //           ),
+      //         ));
+      //       } else {
+      //         return Scrollbar(
+      //           child: ListView(
+      //             padding: const EdgeInsets.only(top: 8, left: 8, right: 8),
+      //             children: [
+      //               for (final channel in snapshot.data!)
+      //                 Container(
+      //                     margin: const EdgeInsets.only(bottom: 8),
+      //                     child: ChannelCard(channel: channel)),
+      //             ],
+      //           ),
+      //         );
+      //       }
+      //     }),
+      body: Container(),
       bottomNavigationBar: NavigationBar(selectedIndex: _selectedIndex),
     );
   }
@@ -79,20 +77,16 @@ class ChannelCard extends StatelessWidget {
                 clipBehavior: Clip.antiAlias,
                 shape: shape,
                 child: InkWell(
-                  onTap: () {},
+                  onTap: (() => Beamer.of(context).beamToNamed(
+                        Routes.channelDetail,
+                        data: {'channel': channel},
+                      )),
                   splashColor:
                       Theme.of(context).colorScheme.onSurface.withOpacity(0.12),
                   highlightColor: Colors.transparent,
                   child: ChannelCardContent(channel: channel),
                 ),
               ),
-            ),
-            const Divider(
-              height: 20,
-              thickness: 5,
-              // indent: 20,
-              endIndent: 0,
-              color: Colors.black,
             ),
           ],
         ),

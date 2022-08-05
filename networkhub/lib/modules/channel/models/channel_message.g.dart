@@ -10,7 +10,7 @@ ChannelMessage _$ChannelMessageFromJson(Map<String, dynamic> json) =>
     ChannelMessage(
       json['id'] as String,
       json['content'] as String,
-      Appuser.fromJson(json['user'] as Map<String, dynamic>),
+      AppUser.fromJson(json['user'] as Map<String, dynamic>),
       DateTime.parse(json['createdAt'] as String),
     );
 

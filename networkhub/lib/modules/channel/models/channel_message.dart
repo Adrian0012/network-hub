@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:networkhub/modules/user/models/user.dart';
+import 'package:networkhub/common/models/user.dart';
 
 part 'channel_message.g.dart';
 
@@ -7,7 +7,7 @@ part 'channel_message.g.dart';
 class ChannelMessage {
   final String id;
   final String content;
-  final Appuser user;
+  final AppUser user;
   final DateTime createdAt;
 
   ChannelMessage(

@@ -9,6 +9,8 @@ class ChannelsLocation extends BeamLocation<BeamState> {
   @override
   List<String> get pathPatterns => ['${Routes.channelDetail}/*'];
 
+  Map get _data => (data as Map);
+
   @override
   List<BeamPage> buildPages(BuildContext context, BeamState state) => [
         const BeamPage(
@@ -17,10 +19,10 @@ class ChannelsLocation extends BeamLocation<BeamState> {
           child: StatsScreen(),
         ),
         if (state.uri.pathSegments.contains('channelDetail'))
-          const BeamPage(
+          BeamPage(
             key: ValueKey('channelDetail'),
             title: 'channelDetail',
-            child: ChannelDetailScreen(),
+            child: ChannelDetailScreen(channel: _data['channel']),
           ),
         if (state.uri.pathSegments.contains('dashboard'))
           const BeamPage(
