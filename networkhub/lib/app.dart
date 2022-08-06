@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:networkhub/common/bloc/authentication_bloc.dart';
+import 'package:networkhub/common/login/views/login_page.dart';
 import 'package:networkhub/common/repositories/authentication_repository.dart';
 import 'package:networkhub/common/repositories/user_repository.dart';
+import 'package:networkhub/modules/home/home.dart';
 import 'package:networkhub/modules/splash/splash.dart';
 
 class App extends StatelessWidget {
