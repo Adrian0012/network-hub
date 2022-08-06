@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:formz/formz.dart';
-import 'package:networkhub/common/login/models/models.dart';
-import 'package:networkhub/common/repositories/authentication_repository.dart';
+import 'package:networkhub/common/authentication/login/models/models.dart';
+import 'package:networkhub/common/authentication/repositories/authentication_repository.dart';
 
 part 'login_event.dart';
 part 'login_state.dart';

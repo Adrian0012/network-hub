@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:networkhub/common/models/user.dart';
+import 'package:networkhub/common/authentication/models/user.dart';
 
 class UserRepository {
   AppUser? _user;

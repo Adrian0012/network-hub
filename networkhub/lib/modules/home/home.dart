@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:networkhub/common/bloc/authentication_bloc.dart';
+import 'package:networkhub/common/authentication/bloc/authentication_bloc.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});

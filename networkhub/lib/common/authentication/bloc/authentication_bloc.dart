@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:networkhub/common/models/user.dart';
-import 'package:networkhub/common/repositories/authentication_repository.dart';
-import 'package:networkhub/common/repositories/user_repository.dart';
+import 'package:networkhub/common/authentication/models/user.dart';
+import 'package:networkhub/common/authentication/repositories/authentication_repository.dart';
+import 'package:networkhub/common/authentication/repositories/user_repository.dart';
 
 part 'authentication_event.dart';
 part 'authentication_state.dart';

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:networkhub/common/repositories/authentication_repository.dart';
-import 'package:networkhub/common/repositories/user_repository.dart';
+import 'package:networkhub/common/authentication/repositories/authentication_repository.dart';
+import 'package:networkhub/common/authentication/repositories/user_repository.dart';
 
 import 'app.dart';
 
