@@ -4,8 +4,8 @@ import 'package:networkhub/common/authentication/bloc/authentication_bloc.dart';
 import 'package:networkhub/common/authentication/login/views/login_page.dart';
 import 'package:networkhub/common/authentication/repositories/authentication_repository.dart';
 import 'package:networkhub/common/authentication/repositories/user_repository.dart';
+import 'package:networkhub/common/splash/splash_view.dart';
 import 'package:networkhub/modules/home/home.dart';
-import 'package:networkhub/modules/splash/splash.dart';
 
 class App extends StatelessWidget {
   const App({
