@@ -16,7 +16,9 @@ class AuthenticationBloc
     required UserRepository userRepository,
   })  : _authenticationRepository = authenticationRepository,
         _userRepository = userRepository,
-        super(const AuthenticationState.unknown()) {
+        super(
+          const AuthenticationState.unknown(),
+        ) {
     on<AuthenticationStatusChanged>(_onAuthenticationStatusChanged);
     on<AuthenticationLogoutRequested>(_onAuthenticationLogoutRequested);
     _authenticationStatusSubscription = _authenticationRepository.status.listen(
@@ -28,6 +30,9 @@ class AuthenticationBloc
   final UserRepository _userRepository;
   late StreamSubscription<AuthenticationStatus>
       _authenticationStatusSubscription;
+
+  bool get isAuthenticated =>
+      state.status == AuthenticationStatus.authenticated;
 
   @override
   Future<void> close() {

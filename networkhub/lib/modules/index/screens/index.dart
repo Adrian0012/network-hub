@@ -9,6 +9,10 @@ class IndexScreen extends StatefulWidget {
 
   @override
   State<IndexScreen> createState() => _IndexScreenState();
+
+  static Route<void> route() {
+    return MaterialPageRoute<void>(builder: (_) => const IndexScreen());
+  }
 }
 
 class _IndexScreenState extends State<IndexScreen> {
