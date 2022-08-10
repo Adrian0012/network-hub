@@ -5,7 +5,7 @@ import 'package:networkhub/config/urls.dart';
 
 class LoginLocation extends BeamLocation<BeamState> {
   @override
-  List<String> get pathPatterns => ['${SharedRoutes.login}/*'];
+  List<String> get pathPatterns => ['${Routes.login}/*'];
 
   Map get _data => (data as Map);
 

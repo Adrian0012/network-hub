@@ -30,10 +30,10 @@ class AppRouter {
     guards: [
       BeamGuard(
         pathPatterns: [
-          '${SharedRoutes.login}*',
+          '${Routes.login}*',
         ],
         check: (context, state) =>
-            context.select((AuthenticationBloc auth) => !auth.isAuthenticated),
+            !context.read<AuthenticationBloc>().isAuthenticated,
         beamToNamed: (origin, target) => Routes.home,
       ),
       BeamGuard(
@@ -41,8 +41,8 @@ class AppRouter {
           '${Routes.home}*',
         ],
         check: (context, state) =>
-            context.select((AuthenticationBloc auth) => auth.isAuthenticated),
-        beamToNamed: (origin, target) => SharedRoutes.login,
+            context.read<AuthenticationBloc>().isAuthenticated,
+        beamToNamed: (origin, target) => Routes.login,
       ),
     ],
     initialPath: Routes.login,

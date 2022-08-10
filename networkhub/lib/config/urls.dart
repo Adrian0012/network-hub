@@ -1,7 +1,3 @@
-class SharedRoutes {
-  static const login = '/login';
-}
-
 class Routes {
   static const login = '/login';
   static const register = '/register';

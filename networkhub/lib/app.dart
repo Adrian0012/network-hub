@@ -40,12 +40,17 @@ class AppView extends StatelessWidget {
     final routerDelegate = AppRouter.routerDelegate;
     return BeamerProvider(
       routerDelegate: routerDelegate,
-      child: MaterialApp.router(
-        scaffoldMessengerKey: AppRouter.scaffoldMessengerKey,
-        routeInformationParser: BeamerParser(),
-        routerDelegate: routerDelegate,
-        backButtonDispatcher:
-            BeamerBackButtonDispatcher(delegate: routerDelegate),
+      child: BlocListener<AuthenticationBloc, AuthenticationState>(
+        listener: (context, state) {
+          routerDelegate.update();
+        },
+        child: MaterialApp.router(
+          scaffoldMessengerKey: AppRouter.scaffoldMessengerKey,
+          routeInformationParser: BeamerParser(),
+          routerDelegate: routerDelegate,
+          backButtonDispatcher:
+              BeamerBackButtonDispatcher(delegate: routerDelegate),
+        ),
       ),
     );
   }
