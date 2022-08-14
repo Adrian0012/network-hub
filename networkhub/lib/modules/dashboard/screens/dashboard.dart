@@ -1,6 +1,8 @@
 import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:networkhub/config/urls.dart';
+import 'package:networkhub/modules/channel/bloc/channel_bloc.dart';
 import 'package:networkhub/modules/channel/models/channel.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
@@ -12,87 +14,112 @@ class DashboardScreen extends StatefulWidget {
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
+  final ChannelBloc _channelBloc = ChannelBloc();
+
+  @override
+  void initState() {
+    _channelBloc.add(GetChannelsList());
+    super.initState();
+  }
+
   final int _selectedIndex = 1;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: const Text('Dashboard'), backgroundColor: Colors.purpleAccent),
-      // body: FutureBuilder<List<Channel>>(
-      //     future: _channelController.getAllChannels(),
-      //     builder: (context, snapshot) {
-      //       if (!snapshot.hasData) {
-      //         return Scaffold(
-      //             body: Center(
-      //           child: LoadingAnimationWidget.dotsTriangle(
-      //             color: const Color(0xFF1A1A3F),
-      //             size: 200,
-      //           ),
-      //         ));
-      //       } else {
-      //         return Scrollbar(
-      //           child: ListView(
-      //             padding: const EdgeInsets.only(top: 8, left: 8, right: 8),
-      //             children: [
-      //               for (final channel in snapshot.data!)
-      //                 Container(
-      //                     margin: const EdgeInsets.only(bottom: 8),
-      //                     child: ChannelCard(channel: channel)),
-      //             ],
-      //           ),
-      //         );
-      //       }
-      //     }),
-      body: Container(),
+        title: const Text('Dashboard'),
+        backgroundColor: Colors.purpleAccent,
+      ),
+      body: _buildChannelsList(),
       bottomNavigationBar: NavigationBar(selectedIndex: _selectedIndex),
     );
   }
-}
 
-class ChannelCard extends StatelessWidget {
-  const ChannelCard({
-    Key? key,
-    this.shape,
-    required this.channel,
-  }) : super(key: key);
-
-  static const height = 298.0;
-  final Channel channel;
-  final ShapeBorder? shape;
-
-  @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      top: false,
-      bottom: false,
-      child: Padding(
-        padding: const EdgeInsets.all(8),
-        child: Column(
-          children: [
-            ChannelCardTitle(title: channel.name),
-            SizedBox(
-              height: height,
-              child: Card(
-                clipBehavior: Clip.antiAlias,
-                shape: shape,
-                child: InkWell(
-                  onTap: (() => Beamer.of(context).beamToNamed(
-                        Routes.channelDetail,
-                        data: {'channel': channel},
-                      )),
-                  splashColor:
-                      Theme.of(context).colorScheme.onSurface.withOpacity(0.12),
-                  highlightColor: Colors.transparent,
-                  child: ChannelCardContent(channel: channel),
-                ),
-              ),
-            ),
-          ],
+  Widget _buildChannelsList() {
+    return Container(
+      margin: const EdgeInsets.all(8.0),
+      child: BlocProvider(
+        create: (_) => _channelBloc,
+        child: BlocListener<ChannelBloc, ChannelState>(
+          listener: (context, state) {
+            // if (state is CovidError) {
+            //   ScaffoldMessenger.of(context).showSnackBar(
+            //     SnackBar(
+            //       content: Text(state.message!),
+            //     ),
+            //   );
+            // }
+          },
+          child: BlocBuilder<ChannelBloc, ChannelState>(
+            builder: (context, state) {
+              if (state is ChannelsInitial) {
+                return _buildLoading();
+              } else if (state is ChannelsLoading) {
+                return _buildLoading();
+              } else if (state is ChannelLoaded) {
+                return _buildCard(context, state.channels);
+                // } else if (state is CovidError) {
+                //   return Container();
+              } else {
+                return Container();
+              }
+            },
+          ),
         ),
       ),
     );
   }
+
+  Widget _buildCard(BuildContext context, List<Channel> model) {
+    const height = 298.0;
+    return ListView.builder(
+      itemCount: model.length,
+      itemBuilder: (context, index) {
+        return SafeArea(
+          top: false,
+          bottom: false,
+          child: Padding(
+            padding: const EdgeInsets.all(8),
+            child: Column(
+              children: [
+                ChannelCardTitle(
+                  title: model[index].name,
+                ),
+                SizedBox(
+                  height: height,
+                  child: Card(
+                    clipBehavior: Clip.antiAlias,
+                    child: InkWell(
+                      onTap: (() => Beamer.of(context).beamToNamed(
+                            Routes.channelDetail,
+                            data: {'channel': model[index]},
+                          )),
+                      splashColor: Theme.of(context)
+                          .colorScheme
+                          .onSurface
+                          .withOpacity(0.12),
+                      highlightColor: Colors.transparent,
+                      child: ChannelCardContent(
+                        channel: model[index],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildLoading() => Center(
+        child: LoadingAnimationWidget.dotsTriangle(
+          color: const Color(0xFF1A1A3F),
+          size: 200,
+        ),
+      );
 }
 
 class ChannelCardTitle extends StatelessWidget {
@@ -116,9 +143,13 @@ class ChannelCardTitle extends StatelessWidget {
 }
 
 class ChannelCardContent extends StatelessWidget {
-  const ChannelCardContent({Key? key, required this.channel}) : super(key: key);
+  const ChannelCardContent({
+    Key? key,
+    required Channel channel,
+  })  : _channel = channel,
+        super(key: key);
 
-  final Channel channel;
+  final Channel _channel;
 
   @override
   Widget build(BuildContext context) {
@@ -136,7 +167,7 @@ class ChannelCardContent extends StatelessWidget {
               Positioned.fill(
                 child: Ink.image(
                   image: NetworkImage(
-                    channel.image,
+                    _channel.image,
                   ),
                   fit: BoxFit.cover,
                   child: Container(),
@@ -150,7 +181,7 @@ class ChannelCardContent extends StatelessWidget {
                   fit: BoxFit.scaleDown,
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    channel.name,
+                    _channel.name,
                     style: titleStyle,
                   ),
                 ),
@@ -170,11 +201,11 @@ class ChannelCardContent extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(bottom: 8),
                   child: Text(
-                    channel.name,
+                    _channel.name,
                     style: descriptionStyle.copyWith(color: Colors.black54),
                   ),
                 ),
-                Text(channel.region),
+                Text(_channel.region),
               ],
             ),
           ),

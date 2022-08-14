@@ -4,19 +4,19 @@ import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:networkhub/config/urls.dart';
 
-class IndexScreen extends StatefulWidget {
-  const IndexScreen({Key? key}) : super(key: key);
+class IntroScreen extends StatefulWidget {
+  const IntroScreen({Key? key}) : super(key: key);
 
   @override
-  State<IndexScreen> createState() => _IndexScreenState();
+  State<IntroScreen> createState() => _IntroScreenState();
 
   static Route<void> route() {
-    return MaterialPageRoute<void>(builder: (_) => const IndexScreen());
+    return MaterialPageRoute<void>(builder: (_) => const IntroScreen());
   }
 }
 
-class _IndexScreenState extends State<IndexScreen> {
-  final introKey = GlobalKey<_IndexScreenState>();
+class _IntroScreenState extends State<IntroScreen> {
+  final introKey = GlobalKey<_IntroScreenState>();
 
   Widget _buildFullscreenImage() {
     return Image.asset(
