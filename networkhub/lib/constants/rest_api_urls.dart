@@ -5,5 +5,6 @@ class RestApiUrls {
   static String login = '/login';
   // APP URLS
   static String getChannels = '/channels';
+  static String getChannelMessages = '/messages/channel/';
   static String getStats = '/stats';
 }

@@ -2,7 +2,7 @@ import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:networkhub/config/urls.dart';
-import 'package:networkhub/modules/channel/bloc/channel_bloc.dart';
+import 'package:networkhub/modules/channel/blocs/channel_bloc.dart';
 import 'package:networkhub/modules/channel/models/channel.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 

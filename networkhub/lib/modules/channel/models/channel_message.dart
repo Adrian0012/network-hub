@@ -9,12 +9,14 @@ class ChannelMessage {
   final String content;
   final AppUser user;
   final DateTime createdAt;
+  final String channelId;
 
   ChannelMessage(
     this.id,
     this.content,
     this.user,
     this.createdAt,
+    this.channelId,
   );
 
   factory ChannelMessage.fromJson(Map<String, dynamic> json) =>

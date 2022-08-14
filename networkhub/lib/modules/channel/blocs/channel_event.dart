@@ -8,3 +8,5 @@ abstract class ChannelEvent extends Equatable {
 }
 
 class GetChannelsList extends ChannelEvent {}
+
+class GetChannelDetails extends ChannelEvent {}

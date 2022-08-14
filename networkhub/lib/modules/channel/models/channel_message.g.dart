@@ -12,6 +12,7 @@ ChannelMessage _$ChannelMessageFromJson(Map<String, dynamic> json) =>
       json['content'] as String,
       AppUser.fromJson(json['user'] as Map<String, dynamic>),
       DateTime.parse(json['createdAt'] as String),
+      json['channelId'] as String,
     );
 
 Map<String, dynamic> _$ChannelMessageToJson(ChannelMessage instance) =>
@@ -20,4 +21,5 @@ Map<String, dynamic> _$ChannelMessageToJson(ChannelMessage instance) =>
       'content': instance.content,
       'user': instance.user,
       'createdAt': instance.createdAt.toIso8601String(),
+      'channelId': instance.channelId,
     };
