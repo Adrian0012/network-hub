@@ -5,18 +5,20 @@ part 'channel_message.g.dart';
 
 @JsonSerializable()
 class ChannelMessage {
-  final String id;
+  final int id;
   final String content;
-  final AppUser user;
+  final int fromUser;
+  // final AppUser user;
   final DateTime createdAt;
-  final String channelId;
+  final int channelId;
 
   ChannelMessage(
     this.id,
     this.content,
-    this.user,
+    // this.user,
     this.createdAt,
     this.channelId,
+    this.fromUser,
   );
 
   factory ChannelMessage.fromJson(Map<String, dynamic> json) =>

@@ -1,6 +1,9 @@
 import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:networkhub/config/urls.dart';
+import 'package:networkhub/modules/channel/blocs/channel_details_bloc.dart';
 import 'package:networkhub/modules/channel/models/channel.dart';
 import 'package:networkhub/modules/channel/models/channel_message.dart';
 
@@ -15,69 +18,86 @@ class ChannelDetailScreen extends StatefulWidget {
 }
 
 class _ChannelDetailScreenState extends State<ChannelDetailScreen> {
-  final int _selectedIndex = 1;
+  final ChannelDetailsBloc _channelDetailsBloc = ChannelDetailsBloc();
 
-  _buildMessage(ChannelMessage message, bool isMe) {
-    final container = Container(
-      margin: isMe
-          ? const EdgeInsets.only(
-              top: 8.0,
-              bottom: 8.0,
-              left: 80.0,
-            )
-          : const EdgeInsets.only(
-              top: 8.0,
-              bottom: 8.0,
-            ),
-      padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 15.0),
-      width: MediaQuery.of(context).size.width * 0.75,
-      decoration: BoxDecoration(
-        color: isMe ? Theme.of(context).accentColor : Color(0xFFFFEFEE),
-        borderRadius: isMe
-            ? const BorderRadius.only(
-                topLeft: Radius.circular(15.0),
-                bottomLeft: Radius.circular(15.0),
-              )
-            : const BorderRadius.only(
-                topRight: Radius.circular(15.0),
-                bottomRight: Radius.circular(15.0),
-              ),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text(
-            message.createdAt as String,
-            style: const TextStyle(
-              color: Colors.grey,
-              fontSize: 16.0,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-          const SizedBox(height: 8.0),
-          Text(
-            message.content,
-            style: const TextStyle(
-              color: Colors.blueGrey,
-              fontSize: 16.0,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-        ],
-      ),
-    );
-
-    if (isMe) {
-      return container;
-    }
+  @override
+  void initState() {
+    _channelDetailsBloc.add(GetChannelDetails());
+    super.initState();
   }
+
+  final int _selectedIndex = 1;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        bottomNavigationBar: NavigationBar(selectedIndex: _selectedIndex));
+      appBar: AppBar(
+        title: const Text('Channel Details'),
+        backgroundColor: Colors.purpleAccent,
+      ),
+      body: _buildMessageList(),
+      bottomNavigationBar: NavigationBar(selectedIndex: _selectedIndex),
+    );
+  }
+
+  Widget _buildMessageList() {
+    return Container(
+      margin: const EdgeInsets.all(8.0),
+      child: BlocProvider(
+        create: (_) => _channelDetailsBloc,
+        child: BlocListener<ChannelDetailsBloc, ChannelDetailsState>(
+          listener: (context, state) {
+            // if (state is CovidError) {
+            //   ScaffoldMessenger.of(context).showSnackBar(
+            //     SnackBar(
+            //       content: Text(state.message!),
+            //     ),
+            //   );
+            // }
+          },
+          child: BlocBuilder<ChannelDetailsBloc, ChannelDetailsState>(
+            builder: (context, state) {
+              if (state is ChannelDetailsInitial) {
+                return _buildLoading();
+              } else if (state is ChannelDetailsLoading) {
+                return _buildLoading();
+              } else if (state is ChannelDetailsLoaded) {
+                return _buildChat(context, state.messages);
+                // } else if (state is CovidError) {
+                //   return Container();
+              } else {
+                return Container();
+              }
+            },
+          ),
+        ),
+      ),
+    );
   }
 }
+
+Widget _buildChat(BuildContext context, List<ChannelMessage> model) {
+  return Column(
+    children: [
+      Expanded(child: Container()),
+      Container(
+        color: Colors.grey.shade300,
+        child: const TextField(
+          decoration: InputDecoration(
+              contentPadding: EdgeInsets.all(12),
+              hintText: 'Type your message here...'),
+        ),
+      )
+    ],
+  );
+}
+
+Widget _buildLoading() => Center(
+      child: LoadingAnimationWidget.dotsTriangle(
+        color: const Color(0xFF1A1A3F),
+        size: 200,
+      ),
+    );
 
 class NavigationBar extends StatelessWidget {
   const NavigationBar({
