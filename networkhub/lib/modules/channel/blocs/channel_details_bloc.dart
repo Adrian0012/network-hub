@@ -9,14 +9,13 @@ part 'channel_details_state.dart';
 
 class ChannelDetailsBloc
     extends Bloc<ChannelDetailsEvent, ChannelDetailsState> {
-  final Channel channel;
-  ChannelDetailsBloc(this.channel) : super(ChannelDetailsInitial()) {
+  ChannelDetailsBloc() : super(ChannelDetailsInitial()) {
     final ChannelRepository channelRepository = ChannelRepository();
 
     on<GetChannelDetails>((event, emit) async {
       emit(ChannelDetailsLoading());
       final List<ChannelMessage> channelsList =
-          await channelRepository.fetchChannelMessages(channel.id);
+          await channelRepository.fetchChannelMessages(event.channel.id);
       emit(ChannelDetailsLoaded(channelsList));
     });
   }

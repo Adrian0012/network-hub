@@ -7,4 +7,7 @@ abstract class ChannelDetailsEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class GetChannelDetails extends ChannelDetailsEvent {}
+class GetChannelDetails extends ChannelDetailsEvent {
+  final Channel channel;
+  const GetChannelDetails(this.channel);
+}

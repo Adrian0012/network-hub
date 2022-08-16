@@ -22,7 +22,7 @@ class _ChannelDetailScreenState extends State<ChannelDetailScreen> {
 
   @override
   void initState() {
-    _channelDetailsBloc.add(GetChannelDetails());
+    _channelDetailsBloc.add(GetChannelDetails(widget.channel));
     super.initState();
   }
 
