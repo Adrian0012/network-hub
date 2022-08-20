@@ -1,6 +1,6 @@
 class RestApiUrls {
   // BASE URL
-  static String baseUrl = 'https://8329-5-42-133-2.ngrok.io';
+  static String baseUrl = 'https://b115-5-42-133-2.ngrok.io';
   // AUTH URLS
   static String login = '/login';
   // APP URLS
