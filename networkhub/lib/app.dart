@@ -50,6 +50,10 @@ class AppView extends StatelessWidget {
           routerDelegate: routerDelegate,
           backButtonDispatcher:
               BeamerBackButtonDispatcher(delegate: routerDelegate),
+          theme: ThemeData(
+            primaryColor: Colors.deepPurple,
+            accentColor: Colors.purpleAccent,
+          ),
         ),
       ),
     );
