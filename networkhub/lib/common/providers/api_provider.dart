@@ -16,6 +16,7 @@ class ApiProvider {
           response.data.map((e) => Channel.fromJson(e)).toList());
       return result;
     } else {
+      // TODO send a sentry error
       throw Error();
     }
   }
@@ -28,6 +29,7 @@ class ApiProvider {
           response.data.map((e) => ChannelMessage.fromJson(e)).toList());
       return result;
     } else {
+      // TODO send a sentry error
       throw Error();
     }
   }

@@ -66,13 +66,13 @@ class _ChannelDetailScreenState extends State<ChannelDetailScreen> {
       create: (_) => _channelDetailsBloc,
       child: BlocListener<ChannelDetailsBloc, ChannelDetailsState>(
         listener: (context, state) {
-          // if (state is CovidError) {
-          //   ScaffoldMessenger.of(context).showSnackBar(
-          //     SnackBar(
-          //       content: Text(state.message!),
-          //     ),
-          //   );
-          // }
+          if (state is ChannelDetailsError) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(state.errorMessage),
+              ),
+            );
+          }
         },
         child: BlocBuilder<ChannelDetailsBloc, ChannelDetailsState>(
             builder: (context, state) {
@@ -83,9 +83,8 @@ class _ChannelDetailScreenState extends State<ChannelDetailScreen> {
           } else if (state is ChannelDetailsLoaded) {
             // return _buildChat(context, state.messages, widget.channel);
             return _buildChatScreen(context, state.messages);
-            // } else if (state is CovidError) {
-            //   return Container();
           } else {
+            // TODO create an error page
             return Container();
           }
         }),

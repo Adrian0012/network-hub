@@ -14,7 +14,11 @@ class ChannelBloc extends Bloc<ChannelEvent, ChannelState> {
       emit(ChannelsLoading());
       final List<Channel> channelsList =
           await channelRepository.fetchChannelList();
-      emit(ChannelLoaded(channelsList));
+      if (channelsList.isNotEmpty) {
+        emit(ChannelLoaded(channelsList));
+      } else {
+        emit(const ChannelError('GET Channels List Error'));
+      }
     });
   }
 }

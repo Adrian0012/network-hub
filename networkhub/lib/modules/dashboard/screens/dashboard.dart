@@ -65,13 +65,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
       create: (_) => _channelBloc,
       child: BlocListener<ChannelBloc, ChannelState>(
         listener: (context, state) {
-          // if (state is CovidError) {
-          //   ScaffoldMessenger.of(context).showSnackBar(
-          //     SnackBar(
-          //       content: Text(state.message!),
-          //     ),
-          //   );
-          // }
+          if (state is ChannelError) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(state.errorMessage),
+              ),
+            );
+          }
         },
         child: BlocBuilder<ChannelBloc, ChannelState>(
           builder: (context, state) {
@@ -81,9 +81,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
               return _buildLoading();
             } else if (state is ChannelLoaded) {
               return _buildChatroom(context, state.channels);
-              // } else if (state is CovidError) {
-              //   return Container();
             } else {
+              // TODO create an error page
               return Container();
             }
           },

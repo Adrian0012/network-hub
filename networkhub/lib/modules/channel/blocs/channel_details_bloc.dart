@@ -14,9 +14,13 @@ class ChannelDetailsBloc
 
     on<GetChannelDetails>((event, emit) async {
       emit(ChannelDetailsLoading());
-      final List<ChannelMessage> channelsList =
+      final List<ChannelMessage> channelMessages =
           await channelRepository.fetchChannelMessages(event.channel.id);
-      emit(ChannelDetailsLoaded(channelsList));
+      if (channelMessages.isNotEmpty) {
+        emit(ChannelDetailsLoaded(channelMessages));
+      } else {
+        emit(const ChannelDetailsError('GET Channels Messages Error'));
+      }
     });
   }
 }
