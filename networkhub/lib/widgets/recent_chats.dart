@@ -52,10 +52,10 @@ class _RecentChatsState extends State<RecentChats> {
                       margin: const EdgeInsets.only(
                         top: 5.0,
                         bottom: 5.0,
-                        right: 20.0,
+                        right: 5.0,
                       ),
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 20.0,
+                        horizontal: 30.0,
                         vertical: 10.0,
                       ),
                       child: Row(
