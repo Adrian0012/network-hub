@@ -7,7 +7,6 @@ import 'package:networkhub/config/urls.dart';
 import 'package:networkhub/modules/channel/location.dart';
 import 'package:networkhub/modules/dashboard/location.dart';
 import 'package:networkhub/modules/intro/location.dart';
-import 'package:networkhub/modules/stats/location.dart';
 import 'package:networkhub/modules/user/location.dart';
 
 class AppRouter {
@@ -23,7 +22,6 @@ class AppRouter {
         IntroLocation(),
         ChannelLocation(),
         DashboardLocation(),
-        StatsLocation(),
         UserAccountLocation(),
       ],
     ),
