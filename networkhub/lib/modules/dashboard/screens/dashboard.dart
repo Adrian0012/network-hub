@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:networkhub/modules/channel/blocs/channel_bloc.dart';
 import 'package:networkhub/modules/channel/models/channel.dart';
-import 'package:networkhub/widgets/bottom_navbar.dart';
 import 'package:networkhub/widgets/category_selector.dart';
 import 'package:networkhub/widgets/loading.dart';
 import 'package:networkhub/widgets/recent_chats.dart';
@@ -23,7 +22,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     super.initState();
   }
 
-  final int _selectedIndex = 1;
+  // final int _selectedIndex = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +54,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         backgroundColor: Theme.of(context).primaryColor,
       ),
       body: _buildChatroomsList(),
-      bottomNavigationBar: Navbar(selectedIndex: _selectedIndex),
+      // bottomNavigationBar: Navbar(selectedIndex: _selectedIndex),
     );
   }
 
