@@ -48,11 +48,14 @@ class _RecentChatsState extends State<RecentChats> {
                           borderRadius: BorderRadius.only(
                             topRight: Radius.circular(20.0),
                             bottomRight: Radius.circular(20.0),
+                            bottomLeft: Radius.circular(20.0),
+                            topLeft: Radius.circular(20.0),
                           )),
                       margin: const EdgeInsets.only(
                         top: 5.0,
                         bottom: 5.0,
                         right: 5.0,
+                        left: 5.0,
                       ),
                       padding: const EdgeInsets.symmetric(
                         horizontal: 30.0,
