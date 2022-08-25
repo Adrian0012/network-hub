@@ -2,32 +2,55 @@ import 'package:equatable/equatable.dart';
 
 class AppUser extends Equatable {
   static const empty = AppUser();
-  final String? uid;
+  final String? userHash;
   final String? email;
-  final bool? emailVerified;
+  final String? firstName;
+  final String? lastName;
+  final String? country;
+  final String? profileImage;
+  final String? userColor;
 
   const AppUser({
-    this.uid,
+    this.userHash,
     this.email,
-    this.emailVerified,
+    this.firstName,
+    this.lastName,
+    this.country,
+    this.profileImage,
+    this.userColor,
   });
 
   AppUser.fromJson(Map<String, Object?> json)
       : this(
-          uid: json['uid']! as String,
+          userHash: json['userHash']! as String,
           email: json['email']! as String,
+          firstName: json['firstName']! as String,
+          lastName: json['lastName']! as String,
+          country: json['country']! as String,
+          profileImage: json['profileImage']! as String,
+          userColor: json['userColor']! as String,
         );
 
   @override
   List<Object?> get props => [
-        uid,
+        userHash,
         email,
+        firstName,
+        lastName,
+        country,
+        profileImage,
+        userColor,
       ];
 
   Map<String, Object?> toJson() {
     return {
-      'uid': uid,
+      'userHash': userHash,
       'email': email,
+      'firstName': firstName,
+      'lastName': lastName,
+      'country': country,
+      'profileImage': profileImage,
+      'userColor': userColor,
     };
   }
 }

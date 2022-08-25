@@ -8,18 +8,18 @@ part of 'channel_message.dart';
 
 ChannelMessage _$ChannelMessageFromJson(Map<String, dynamic> json) =>
     ChannelMessage(
-      json['id'] as int,
+      json['messageHash'] as String,
       json['content'] as String,
+      AppUser.fromJson(json['fromUser'] as Map<String, dynamic>),
       DateTime.parse(json['createdAt'] as String),
-      json['channel'] as int,
-      json['fromUser'] as int,
+      json['channelHash'] as String,
     );
 
 Map<String, dynamic> _$ChannelMessageToJson(ChannelMessage instance) =>
     <String, dynamic>{
-      'id': instance.id,
+      'messageHash': instance.messageHash,
       'content': instance.content,
       'fromUser': instance.fromUser,
       'createdAt': instance.createdAt.toIso8601String(),
-      'channel': instance.channel,
+      'channelHash': instance.channelHash,
     };

@@ -7,17 +7,19 @@ part of 'channel.dart';
 // **************************************************************************
 
 Channel _$ChannelFromJson(Map<String, dynamic> json) => Channel(
-      json['id'] as int,
+      json['channelHash'] as String,
       json['name'] as String,
       json['region'] as String,
       json['image'] as String,
+      json['latestMessage'] as String?,
       DateTime.parse(json['createdAt'] as String),
     );
 
 Map<String, dynamic> _$ChannelToJson(Channel instance) => <String, dynamic>{
-      'id': instance.id,
+      'channelHash': instance.channelHash,
       'name': instance.name,
       'region': instance.region,
       'image': instance.image,
+      'latestMessage': instance.latestMessage,
       'createdAt': instance.createdAt.toIso8601String(),
     };

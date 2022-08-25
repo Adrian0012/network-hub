@@ -9,7 +9,7 @@ class ChannelRepository {
     return _provider.fetchChannelList();
   }
 
-  Future<List<ChannelMessage>> fetchChannelMessages(int channelId) {
+  Future<List<ChannelMessage>> fetchChannelMessages(String channelId) {
     return _provider.fetchChannelMessages(channelId);
   }
 }

@@ -18,7 +18,7 @@ class UserAccountScreen extends StatelessWidget {
             Builder(
               builder: (context) {
                 final userId = context.select(
-                  (AuthenticationBloc bloc) => bloc.state.user.uid,
+                  (AuthenticationBloc bloc) => bloc.state.user.userHash,
                 );
                 return Text('UserID: $userId');
               },

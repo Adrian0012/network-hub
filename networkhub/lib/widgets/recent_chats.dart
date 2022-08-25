@@ -73,35 +73,41 @@ class _RecentChatsState extends State<RecentChats> {
                               const SizedBox(
                                 width: 10.0,
                               ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  Text(
-                                    channel.name,
-                                    style: const TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 15.0,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 5.0,
-                                  ),
-                                  Container(
-                                    width: MediaQuery.of(context).size.width *
-                                        0.45,
-                                    // TODO  add the latest message to model and display it here
-                                    child: const Text(
-                                      'latest message',
-                                      style: TextStyle(
-                                        color: Colors.blueGrey,
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width * 0.45,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Text(
+                                      channel.name,
+                                      style: const TextStyle(
+                                        color: Colors.grey,
                                         fontSize: 15.0,
-                                        fontWeight: FontWeight.w600,
+                                        fontWeight: FontWeight.bold,
                                       ),
                                       overflow: TextOverflow.ellipsis,
                                     ),
-                                  ),
-                                ],
+                                    const SizedBox(
+                                      height: 5.0,
+                                    ),
+                                    // this was Container
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.45,
+                                      child: Text(
+                                        channel.latestMessage != null
+                                            ? channel.latestMessage as String
+                                            : '',
+                                        style: const TextStyle(
+                                          color: Colors.blueGrey,
+                                          fontSize: 15.0,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ],
                           ),

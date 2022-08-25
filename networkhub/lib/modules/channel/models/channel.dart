@@ -4,17 +4,19 @@ part 'channel.g.dart';
 
 @JsonSerializable()
 class Channel {
-  final int id;
+  final String channelHash;
   final String name;
   final String region;
   final String image;
+  final String? latestMessage;
   final DateTime createdAt;
 
   Channel(
-    this.id,
+    this.channelHash,
     this.name,
     this.region,
     this.image,
+    this.latestMessage,
     this.createdAt,
   );
 

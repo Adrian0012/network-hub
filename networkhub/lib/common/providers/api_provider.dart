@@ -21,9 +21,9 @@ class ApiProvider {
     }
   }
 
-  Future<List<ChannelMessage>> fetchChannelMessages(int channelId) async {
+  Future<List<ChannelMessage>> fetchChannelMessages(String channelId) async {
     Response response =
-        await _dio.get(_baseApi + _getChannelMessages + channelId.toString());
+        await _dio.get(_baseApi + _getChannelMessages + channelId);
     if (response.statusCode == 200) {
       final List<ChannelMessage> result = List<ChannelMessage>.from(
           response.data.map((e) => ChannelMessage.fromJson(e)).toList());

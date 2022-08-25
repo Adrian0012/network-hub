@@ -1,8 +1,8 @@
 class RestApiUrls {
   // BASE URL
-  static String baseUrl = 'https://b821-5-42-133-2.ngrok.io';
+  static String baseUrl = 'https://6be6-5-42-133-2.ngrok.io';
   // AUTH URLS
-  static String login = '/login';
+  static String login = '/login/';
   // APP URLS
   static String getChannels = '/channels';
   static String getChannelMessages = '/messages/channel/';
