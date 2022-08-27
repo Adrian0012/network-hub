@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
-class AppUser extends Equatable {
-  static const empty = AppUser();
+class User extends Equatable {
+  static const empty = User();
   final String? userHash;
   final String? email;
   final String? firstName;
@@ -10,7 +10,7 @@ class AppUser extends Equatable {
   final String? profileImage;
   final String? userColor;
 
-  const AppUser({
+  const User({
     this.userHash,
     this.email,
     this.firstName,
@@ -20,7 +20,7 @@ class AppUser extends Equatable {
     this.userColor,
   });
 
-  AppUser.fromJson(Map<String, Object?> json)
+  User.fromJson(Map<String, Object?> json)
       : this(
           userHash: json['userHash']! as String,
           email: json['email']! as String,

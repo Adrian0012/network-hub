@@ -67,7 +67,7 @@ class AuthenticationBloc
     _authenticationRepository.logOut();
   }
 
-  Future<AppUser?> _tryGetUser() async {
+  Future<User?> _tryGetUser() async {
     try {
       final user = await _userRepository.getUser();
       return user;

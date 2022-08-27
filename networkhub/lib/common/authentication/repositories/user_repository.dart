@@ -3,13 +3,13 @@ import 'dart:async';
 import 'package:networkhub/common/authentication/models/user.dart';
 
 class UserRepository {
-  AppUser? _user;
+  User? _user;
 
-  Future<AppUser?> getUser() async {
+  Future<User?> getUser() async {
     if (_user != null) return _user;
     return Future.delayed(
       const Duration(milliseconds: 300),
-      () => _user = const AppUser(),
+      () => _user = const User(),
     );
   }
 }

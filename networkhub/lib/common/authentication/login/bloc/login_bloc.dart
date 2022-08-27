@@ -56,7 +56,11 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           email: state.email.value,
           password: state.password.value,
         );
-        emit(state.copyWith(status: FormzStatus.submissionSuccess));
+        emit(state.copyWith(
+          email: state.email,
+          password: state.password,
+          status: FormzStatus.submissionSuccess,
+        ));
       } catch (_) {
         emit(state.copyWith(status: FormzStatus.submissionFailure));
       }

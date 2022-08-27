@@ -7,7 +7,7 @@ part 'channel_message.g.dart';
 class ChannelMessage {
   final String messageHash;
   final String content;
-  final AppUser fromUser;
+  final User fromUser;
   final DateTime createdAt;
   final String channelHash;
 
