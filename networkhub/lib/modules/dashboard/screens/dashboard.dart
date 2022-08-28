@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:networkhub/common/authentication/authentication/bloc/authentication_bloc.dart';
 import 'package:networkhub/modules/channel/blocs/channel_bloc.dart';
 import 'package:networkhub/modules/channel/models/channel.dart';
-import 'package:networkhub/widgets/category_selector.dart';
-import 'package:networkhub/widgets/loading.dart';
-import 'package:networkhub/widgets/recent_chats.dart';
+import 'package:networkhub/widgets/chats/category_selector.dart';
+import 'package:networkhub/widgets/chats/recent_chats.dart';
+import 'package:networkhub/widgets/common/loading.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({Key? key}) : super(key: key);

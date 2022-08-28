@@ -22,5 +22,16 @@ class ChannelDetailsBloc
         emit(const ChannelDetailsError('GET Channels Messages Error'));
       }
     });
+
+    on<SendChannelMessage>((event, emit) async {
+      print(event.message);
+      // final List<Channel> channelsList =
+      //     await channelRepository.fetchChannelList();
+      // if (channelsList.isNotEmpty) {
+      //   emit(ChannelDetailsLoaded(channelsList));
+      // } else {
+      //   emit(const ChannelDetailsError('GET Channels List Error'));
+      // }
+    });
   }
 }

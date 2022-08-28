@@ -19,6 +19,7 @@ class ChannelDetailScreen extends StatefulWidget {
 
 class _ChannelDetailScreenState extends State<ChannelDetailScreen> {
   final ChannelDetailsBloc _channelDetailsBloc = ChannelDetailsBloc();
+  TextEditingController messageController = TextEditingController();
 
   @override
   void initState() {
@@ -216,6 +217,11 @@ Widget _buildMessageComposer(BuildContext context) {
             onChanged: (value) {},
             decoration:
                 const InputDecoration.collapsed(hintText: 'Send a message...'),
+            onSubmitted: ((value) => {
+                  context.read<ChannelDetailsBloc>().add(
+                        SendChannelMessage(value),
+                      )
+                }),
           ),
         ),
         IconButton(

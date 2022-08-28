@@ -68,7 +68,7 @@ class ApiProvider {
       "Accept": "application/json",
     };
     Response response = await get(
-      Uri.parse('$_baseApi//messages/channel/$channelId'),
+      Uri.parse('$_baseApi/messages/channel/$channelId'),
       headers: headers,
     );
     if (response.statusCode == 200) {

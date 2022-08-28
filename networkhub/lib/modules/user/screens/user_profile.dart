@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:networkhub/common/authentication/authentication/bloc/authentication_bloc.dart';
-import 'package:networkhub/widgets/bottom_navbar.dart';
+import 'package:networkhub/widgets/common/bottom_navbar.dart';
 
 class UserAccountScreen extends StatelessWidget {
   const UserAccountScreen({super.key});

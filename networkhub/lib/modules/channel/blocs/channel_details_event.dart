@@ -11,3 +11,8 @@ class GetChannelDetails extends ChannelDetailsEvent {
   final Channel channel;
   const GetChannelDetails(this.channel);
 }
+
+class SendChannelMessage extends ChannelDetailsEvent {
+  final String message;
+  const SendChannelMessage(this.message);
+}
