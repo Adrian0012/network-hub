@@ -19,4 +19,12 @@ class ChannelDetailsError extends ChannelDetailsState {
 class ChannelDetailsLoaded extends ChannelDetailsState {
   final List<ChannelMessage> messages;
   const ChannelDetailsLoaded(this.messages);
+
+  @override
+  List<Object?> get props => [messages];
+}
+
+class ChannelDetailsSendMessage extends ChannelDetailsState {
+  final String message;
+  const ChannelDetailsSendMessage(this.message);
 }

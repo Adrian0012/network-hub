@@ -8,11 +8,15 @@ part of 'channel_message.dart';
 
 ChannelMessage _$ChannelMessageFromJson(Map<String, dynamic> json) =>
     ChannelMessage(
-      json['messageHash'] as String,
-      json['content'] as String,
-      User.fromJson(json['fromUser'] as Map<String, dynamic>),
-      DateTime.parse(json['createdAt'] as String),
-      json['channelHash'] as String,
+      json['messageHash'] as String?,
+      json['content'] as String?,
+      json['fromUser'] == null
+          ? null
+          : User.fromJson(json['fromUser'] as Map<String, dynamic>),
+      json['createdAt'] == null
+          ? null
+          : DateTime.parse(json['createdAt'] as String),
+      json['channelHash'] as String?,
     );
 
 Map<String, dynamic> _$ChannelMessageToJson(ChannelMessage instance) =>
@@ -20,6 +24,6 @@ Map<String, dynamic> _$ChannelMessageToJson(ChannelMessage instance) =>
       'messageHash': instance.messageHash,
       'content': instance.content,
       'fromUser': instance.fromUser,
-      'createdAt': instance.createdAt.toIso8601String(),
+      'createdAt': instance.createdAt?.toIso8601String(),
       'channelHash': instance.channelHash,
     };

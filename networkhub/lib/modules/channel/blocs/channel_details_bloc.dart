@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:networkhub/common/authentication/models/user.dart';
 import 'package:networkhub/modules/channel/models/channel.dart';
 import 'package:networkhub/modules/channel/models/channel_message.dart';
 import 'package:networkhub/modules/channel/repositories/channel.dart';
@@ -24,7 +25,22 @@ class ChannelDetailsBloc
     });
 
     on<SendChannelMessage>((event, emit) async {
-      print(event.message);
+      if (state is ChannelDetailsLoaded) {
+        final state = this.state as ChannelDetailsLoaded;
+        final User user = User(
+          userHash: '',
+          email: 'adrian@code.je',
+          firstName: 'Adrian',
+          lastName: 'Lang',
+          country: 'Jersey',
+          profileImage: '',
+          userColor: '',
+        );
+        final ChannelMessage newMessage =
+            ChannelMessage(null, event.message, user, DateTime.now(), null);
+        emit(ChannelDetailsLoaded(List.from(state.messages)..add(newMessage)));
+      }
+      // emit(ChannelDetailsSendMessage(event.message));
       // final List<Channel> channelsList =
       //     await channelRepository.fetchChannelList();
       // if (channelsList.isNotEmpty) {

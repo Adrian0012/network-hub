@@ -6,6 +6,7 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:networkhub/modules/channel/blocs/channel_details_bloc.dart';
 import 'package:networkhub/modules/channel/models/channel.dart';
 import 'package:networkhub/modules/channel/models/channel_message.dart';
+import 'package:networkhub/widgets/chats/message_composer.dart';
 
 class ChannelDetailScreen extends StatefulWidget {
   const ChannelDetailScreen({Key? key, required this.channel})
@@ -19,7 +20,6 @@ class ChannelDetailScreen extends StatefulWidget {
 
 class _ChannelDetailScreenState extends State<ChannelDetailScreen> {
   final ChannelDetailsBloc _channelDetailsBloc = ChannelDetailsBloc();
-  TextEditingController messageController = TextEditingController();
 
   @override
   void initState() {
@@ -122,7 +122,8 @@ Widget _buildChatScreen(BuildContext context, List<ChannelMessage> model) {
             ),
           ),
         ),
-        _buildMessageComposer(context)
+        // _buildMessageComposer(context)
+        const MessageComposer()
       ],
     ),
   );
@@ -165,7 +166,7 @@ Widget _buildMessage(BuildContext context, ChannelMessage msg, bool isMe) {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text(
-          DateFormat('kk:mm').format(msg.createdAt),
+          DateFormat('kk:mm').format(msg.createdAt as DateTime),
           style: const TextStyle(
             color: Colors.blueGrey,
             fontSize: 16.0,
@@ -173,7 +174,7 @@ Widget _buildMessage(BuildContext context, ChannelMessage msg, bool isMe) {
           ),
         ),
         const SizedBox(height: 8.0),
-        Text(msg.content),
+        Text(msg.content as String),
       ],
     ),
   );
@@ -197,42 +198,42 @@ Widget _buildMessage(BuildContext context, ChannelMessage msg, bool isMe) {
   );
 }
 
-Widget _buildMessageComposer(BuildContext context) {
-  return Container(
-    padding: const EdgeInsets.symmetric(
-      horizontal: 8.0,
-    ),
-    height: 70.0,
-    color: Colors.white,
-    child: Row(
-      children: <Widget>[
-        IconButton(
-          onPressed: () {},
-          icon: const Icon(Icons.photo),
-          color: Theme.of(context).primaryColor,
-        ),
-        Expanded(
-          child: TextField(
-            textCapitalization: TextCapitalization.sentences,
-            onChanged: (value) {},
-            decoration:
-                const InputDecoration.collapsed(hintText: 'Send a message...'),
-            onSubmitted: ((value) => {
-                  context.read<ChannelDetailsBloc>().add(
-                        SendChannelMessage(value),
-                      )
-                }),
-          ),
-        ),
-        IconButton(
-          onPressed: () {},
-          icon: const Icon(Icons.send),
-          color: Theme.of(context).primaryColor,
-        )
-      ],
-    ),
-  );
-}
+// Widget _buildMessageComposer(BuildContext context) {
+//   return Container(
+//     padding: const EdgeInsets.symmetric(
+//       horizontal: 8.0,
+//     ),
+//     height: 70.0,
+//     color: Colors.white,
+//     child: Row(
+//       children: <Widget>[
+//         IconButton(
+//           onPressed: () {},
+//           icon: const Icon(Icons.photo),
+//           color: Theme.of(context).primaryColor,
+//         ),
+//         Expanded(
+//           child: TextField(
+//             textCapitalization: TextCapitalization.sentences,
+//             onChanged: (value) {},
+//             decoration:
+//                 const InputDecoration.collapsed(hintText: 'Send a message...'),
+//             onSubmitted: ((value) => {
+//                   context.read<ChannelDetailsBloc>().add(
+//                         SendChannelMessage(value),
+//                       )
+//                 }),
+//           ),
+//         ),
+//         IconButton(
+//           onPressed: () {},
+//           icon: const Icon(Icons.send),
+//           color: Theme.of(context).primaryColor,
+//         )
+//       ],
+//     ),
+//   );
+// }
 
 Widget _buildLoading() => Center(
       child: LoadingAnimationWidget.dotsTriangle(

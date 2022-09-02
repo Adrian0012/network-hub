@@ -15,4 +15,7 @@ class GetChannelDetails extends ChannelDetailsEvent {
 class SendChannelMessage extends ChannelDetailsEvent {
   final String message;
   const SendChannelMessage(this.message);
+
+  @override
+  List<Object> get props => [message];
 }
