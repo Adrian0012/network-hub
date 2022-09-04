@@ -1,15 +1,13 @@
 import 'dart:async';
 
 import 'package:networkhub/common/authentication/models/user.dart';
+import 'package:networkhub/common/providers/api_provider.dart';
 
 class UserRepository {
-  User? _user;
+  final _apiProvider = ApiProvider();
 
-  Future<User?> getUser() async {
-    if (_user != null) return _user;
-    return Future.delayed(
-      const Duration(milliseconds: 300),
-      () => _user = const User(email: 'adrian@code.je'),
-    );
+  Future<User> getUser() async {
+    final User user = await _apiProvider.getUser();
+    return user;
   }
 }

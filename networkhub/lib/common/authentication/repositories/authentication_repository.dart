@@ -1,12 +1,15 @@
 import 'dart:async';
 
+import 'package:networkhub/common/providers/api_provider.dart';
+
 enum AuthenticationStatus { unknown, authenticated, unauthenticated }
 
 class AuthenticationRepository {
   final _controller = StreamController<AuthenticationStatus>();
+  final _apiProvider = ApiProvider();
 
   Stream<AuthenticationStatus> get status async* {
-    await Future<void>.delayed(const Duration(seconds: 1));
+    // await Future<void>.delayed(const Duration(seconds: 1));
     yield AuthenticationStatus.unauthenticated;
     yield* _controller.stream;
   }
@@ -15,10 +18,10 @@ class AuthenticationRepository {
     required String email,
     required String password,
   }) async {
-    await Future.delayed(
-      const Duration(milliseconds: 300),
-      () => _controller.add(AuthenticationStatus.authenticated),
-    );
+    bool response = await _apiProvider.userLogin(email, password);
+    if (response) {
+      _controller.add(AuthenticationStatus.authenticated);
+    }
   }
 
   void logOut() {

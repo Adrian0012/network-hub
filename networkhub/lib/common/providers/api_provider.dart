@@ -5,11 +5,14 @@ import 'package:networkhub/common/authentication/models/user.dart';
 import 'package:networkhub/constants/rest_api_urls.dart';
 import 'package:networkhub/modules/channel/models/channel.dart';
 import 'package:networkhub/modules/channel/models/channel_message.dart';
+import 'package:networkhub/services/storage_item.dart';
+import 'package:networkhub/services/storage_service.dart';
 
 class ApiProvider {
   final String _baseApi = RestApiUrls.baseUrl;
+  final StorageService _storageService = StorageService.instance();
 
-  Future<User> userLogin(String email, String password) async {
+  Future<bool> userLogin(String email, String password) async {
     Map<String, String> headers = {
       "Content-type": "application/json",
       "Accept": "application/json",
@@ -27,18 +30,45 @@ class ApiProvider {
     if (response.statusCode == 200) {
       final responseData = json.decode(response.body);
       if (responseData != null) {
-        final User result = User.fromJson(responseData['user']);
-        return result;
+        _storageService.write(key: Token.key, value: responseData['token']);
+        return true;
       } else {
-        throw 'API User Error';
+        throw 'Login - API Response error';
       }
     } else {
-      // TODO send a sentry error
-      throw 'API Error';
+      throw 'Login - API Server Error';
+    }
+  }
+
+  Future<User> getUser() async {
+    String? securityToken =
+        await _storageService.read(key: Token.key) as String;
+    Map<String, String> headers = {
+      "Content-type": "application/json",
+      "Accept": "application/json",
+      "Authorization": "Token $securityToken",
+    };
+
+    Response response = await get(
+      Uri.parse('$_baseApi/user/'),
+      headers: headers,
+    );
+    if (response.statusCode == 200) {
+      final responseData = json.decode(response.body);
+      if (responseData != null) {
+        final User user = User.fromJson(responseData);
+        return user;
+      } else {
+        throw 'Get User - API Response error';
+      }
+    } else {
+      throw 'Get User - API Server Error';
     }
   }
 
   Future<List<Channel>> fetchChannelList() async {
+    String? _securityToken =
+        await _storageService.read(key: Token.key) as String;
     Map<String, String> headers = {
       "Content-type": "application/json",
       "Accept": "application/json",

@@ -27,6 +27,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final String userEmail =
+        context.watch<AuthenticationBloc>().state.user.email as String;
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
       appBar: AppBar(
@@ -60,11 +62,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
           child: ListView(
             padding: EdgeInsets.zero,
             children: [
-              const DrawerHeader(
-                decoration: BoxDecoration(
+              DrawerHeader(
+                decoration: const BoxDecoration(
                   color: Colors.blue,
                 ),
-                child: Text('Drawer Header'),
+                child: Text(userEmail),
               ),
               ListTile(
                 leading: const Icon(Icons.logout),
