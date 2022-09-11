@@ -11,6 +11,8 @@ class ChannelDetailsInitial extends ChannelDetailsState {}
 
 class ChannelDetailsLoading extends ChannelDetailsState {}
 
+class ChannelDetailsMessage extends ChannelDetailsState {}
+
 class ChannelDetailsError extends ChannelDetailsState {
   final String errorMessage;
   const ChannelDetailsError(this.errorMessage);

@@ -19,3 +19,11 @@ class SendChannelMessage extends ChannelDetailsEvent {
   @override
   List<Object> get props => [message];
 }
+
+class ReceiveChannelMessage extends ChannelDetailsEvent {
+  final Map<String, dynamic> message;
+  const ReceiveChannelMessage(this.message);
+
+  @override
+  List<Object> get props => [message];
+}

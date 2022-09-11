@@ -23,11 +23,18 @@ class App extends StatelessWidget {
         child: MultiBlocProvider(
           providers: [
             BlocProvider(
-                create: (_) => AuthenticationBloc(
-                    authenticationRepository: authRepository,
-                    userRepository: userRepository)),
+              create: (_) => AuthenticationBloc(
+                authenticationRepository: authRepository,
+                userRepository: userRepository,
+              ),
+            ),
           ],
-          child: const AppView(),
+          child: BlocListener<AuthenticationBloc, AuthenticationState>(
+            listener: (context, state) {
+              context.read<AuthenticationBloc>().establishConnection();
+            },
+            child: const AppView(),
+          ),
         ));
   }
 }

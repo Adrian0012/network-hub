@@ -198,43 +198,6 @@ Widget _buildMessage(BuildContext context, ChannelMessage msg, bool isMe) {
   );
 }
 
-// Widget _buildMessageComposer(BuildContext context) {
-//   return Container(
-//     padding: const EdgeInsets.symmetric(
-//       horizontal: 8.0,
-//     ),
-//     height: 70.0,
-//     color: Colors.white,
-//     child: Row(
-//       children: <Widget>[
-//         IconButton(
-//           onPressed: () {},
-//           icon: const Icon(Icons.photo),
-//           color: Theme.of(context).primaryColor,
-//         ),
-//         Expanded(
-//           child: TextField(
-//             textCapitalization: TextCapitalization.sentences,
-//             onChanged: (value) {},
-//             decoration:
-//                 const InputDecoration.collapsed(hintText: 'Send a message...'),
-//             onSubmitted: ((value) => {
-//                   context.read<ChannelDetailsBloc>().add(
-//                         SendChannelMessage(value),
-//                       )
-//                 }),
-//           ),
-//         ),
-//         IconButton(
-//           onPressed: () {},
-//           icon: const Icon(Icons.send),
-//           color: Theme.of(context).primaryColor,
-//         )
-//       ],
-//     ),
-//   );
-// }
-
 Widget _buildLoading() => Center(
       child: LoadingAnimationWidget.dotsTriangle(
         color: const Color(0xFF1A1A3F),

@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:networkhub/modules/channel/models/channel.dart';
-import 'package:networkhub/modules/channel/repositories/channel.dart';
+import 'package:networkhub/modules/channel/repositories/channel_repository.dart';
 
 part 'channel_event.dart';
 part 'channel_state.dart';
