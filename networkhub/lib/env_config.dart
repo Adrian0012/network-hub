@@ -3,7 +3,7 @@ class EnvironmentConfig {
 
   static const String sentryDSN = '';
 
-  static const String pusherApiKey = '5895701fa73f00c6ce0e';
+  static const String pusherApiKey = String.fromEnvironment('PUSHER_API_KEY');
 
   static const String pusherCluster = 'eu';
 

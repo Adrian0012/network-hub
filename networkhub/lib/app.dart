@@ -46,7 +46,6 @@ class AppView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(const String.fromEnvironment('CLIENT_SECRET'));
     final routerDelegate = AppRouter.routerDelegate;
     return BeamerProvider(
       routerDelegate: routerDelegate,
