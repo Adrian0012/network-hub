@@ -29,12 +29,14 @@ class App extends StatelessWidget {
               ),
             ),
           ],
-          child: BlocListener<AuthenticationBloc, AuthenticationState>(
-            listener: (context, state) {
-              context.read<AuthenticationBloc>().establishConnection();
-            },
-            child: const AppView(),
-          ),
+          child: const AppView(),
+
+          // child: BlocListener<AuthenticationBloc, AuthenticationState>(
+          //   listener: (context, state) {
+          //     context.read<AuthenticationBloc>().establishConnection();
+          //   },
+          //   child: const AppView(),
+          // ),
         ));
   }
 }
@@ -44,6 +46,7 @@ class AppView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(const String.fromEnvironment('CLIENT_SECRET'));
     final routerDelegate = AppRouter.routerDelegate;
     return BeamerProvider(
       routerDelegate: routerDelegate,

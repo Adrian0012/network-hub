@@ -5,8 +5,8 @@ import 'package:networkhub/common/authentication/models/user.dart';
 import 'package:networkhub/constants/rest_api_urls.dart';
 import 'package:networkhub/modules/channel/models/channel.dart';
 import 'package:networkhub/modules/channel/models/channel_message.dart';
-import 'package:networkhub/services/storage_item.dart';
-import 'package:networkhub/services/storage_service.dart';
+import 'package:networkhub/services/secure_storage/storage_item.dart';
+import 'package:networkhub/services/secure_storage/storage_service.dart';
 
 class ApiProvider {
   final String _baseApi = RestApiUrls.baseUrl;

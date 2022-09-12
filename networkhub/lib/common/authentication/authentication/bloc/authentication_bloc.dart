@@ -5,13 +5,12 @@ import 'package:equatable/equatable.dart';
 import 'package:networkhub/common/authentication/models/user.dart';
 import 'package:networkhub/common/authentication/repositories/authentication_repository.dart';
 import 'package:networkhub/common/authentication/repositories/user_repository.dart';
-import 'package:networkhub/common/mixin/pusher_mixin.dart';
 
 part 'authentication_event.dart';
 part 'authentication_state.dart';
 
-class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState>
-    with PusherMixin {
+class AuthenticationBloc
+    extends Bloc<AuthenticationEvent, AuthenticationState> {
   AuthenticationBloc({
     required AuthenticationRepository authenticationRepository,
     required UserRepository userRepository,

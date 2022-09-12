@@ -1,12 +1,17 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:networkhub/env_config.dart';
-import 'package:networkhub/modules/channel/repositories/channel_repository.dart';
+import 'package:networkhub/modules/channel/blocs/channel_details_bloc.dart';
 import 'package:pusher_channels_flutter/pusher_channels_flutter.dart';
 
-class PusherMixin {
+class PusherService {
   PusherChannelsFlutter pusher = PusherChannelsFlutter.getInstance();
-  final ChannelRepository _channelRepository = ChannelRepository();
+  // late ChannelDetailsBloc _channelDetailsBloc;
+  StreamController<Map<String, dynamic>> messagesStreamController =
+      StreamController<Map<String, dynamic>>();
+  Stream<Map<String, dynamic>> get messages =>
+      messagesStreamController.stream.asBroadcastStream();
 
   void log(String text) {
     print("LOG: $text");
@@ -47,8 +52,8 @@ class PusherMixin {
   }
 
   void onPusherEvent(PusherEvent event) {
-    // log("onEvent: $event");
-    _channelRepository.messageReceived(message: json.decode(event.data));
+    log("onEvent: $event");
+    messagesStreamController.add(json.decode(event.data));
   }
 
   void onSubscriptionSucceeded(String channelName, dynamic data) {
