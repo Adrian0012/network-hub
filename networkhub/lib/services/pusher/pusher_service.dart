@@ -2,21 +2,21 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:networkhub/env_config.dart';
-import 'package:networkhub/modules/channel/blocs/channel_details_bloc.dart';
 import 'package:pusher_channels_flutter/pusher_channels_flutter.dart';
 
 class PusherService {
   PusherChannelsFlutter pusher = PusherChannelsFlutter.getInstance();
-  // late ChannelDetailsBloc _channelDetailsBloc;
   StreamController<Map<String, dynamic>> messagesStreamController =
       StreamController<Map<String, dynamic>>();
   Stream<Map<String, dynamic>> get messages =>
       messagesStreamController.stream.asBroadcastStream();
 
   void log(String text) {
+    // ignore: avoid_print
     print("LOG: $text");
   }
 
+  // ignore: todo
   // TODO
   // split the init and subscribe?
   // call unsubscribe when logging out
@@ -38,6 +38,9 @@ class PusherService {
       );
       await pusher.subscribe(channelName: EnvironmentConfig.pusherChannelName);
       await pusher.connect();
+      print(EnvironmentConfig.pusherChannelName);
+      print(EnvironmentConfig.pusherApiKey);
+      print(EnvironmentConfig.pusherCluster);
     } catch (e) {
       log("ERROR: $e");
     }

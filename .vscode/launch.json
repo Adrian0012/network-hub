@@ -9,9 +9,7 @@
       "cwd": "networkhub",
       "request": "launch",
       "type": "dart",
-      "args": [
-        "--dart-define=PUSHER_API_KEY=",
-      ],
+      "args": [],
     },
     {
       "name": "networkhub (profile mode)",

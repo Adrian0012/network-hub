@@ -6,7 +6,7 @@ class MessageComposer extends StatefulWidget {
   const MessageComposer({Key? key}) : super(key: key);
 
   @override
-  _MessageComposerState createState() => _MessageComposerState();
+  State<MessageComposer> createState() => _MessageComposerState();
 }
 
 class _MessageComposerState extends State<MessageComposer> {

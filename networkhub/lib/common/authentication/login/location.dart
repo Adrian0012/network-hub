@@ -7,7 +7,7 @@ class LoginLocation extends BeamLocation<BeamState> {
   @override
   List<String> get pathPatterns => ['${Routes.login}/*'];
 
-  Map get _data => (data as Map);
+  // Map get _data => (data as Map);
 
   @override
   List<BeamPage> buildPages(BuildContext context, BeamState state) => [

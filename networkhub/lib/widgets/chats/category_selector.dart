@@ -4,7 +4,7 @@ class CategorySelector extends StatefulWidget {
   const CategorySelector({Key? key}) : super(key: key);
 
   @override
-  _CategorySelectorState createState() => _CategorySelectorState();
+  State<CategorySelector> createState() => _CategorySelectorState();
 }
 
 int selectedIndex = 0;

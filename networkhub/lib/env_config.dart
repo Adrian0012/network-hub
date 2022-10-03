@@ -1,11 +1,13 @@
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
 class EnvironmentConfig {
   static const String appENV = 'dev';
 
-  static const String sentryDSN = '';
+  static String sentryDSN = dotenv.env['SENTRY_DSN_KEY'] as String;
 
-  static const String pusherApiKey = String.fromEnvironment('PUSHER_API_KEY');
+  static String pusherApiKey = dotenv.env['PUSHER_API_KEY'] as String;
 
-  static const String pusherCluster = 'eu';
+  static String pusherCluster = dotenv.env['PUSHER_CLUSTER'] as String;
 
-  static const String pusherChannelName = 'my-channel';
+  static String pusherChannelName = dotenv.env['PUSHER_CHANNEL'] as String;
 }

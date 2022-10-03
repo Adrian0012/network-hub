@@ -7,7 +7,7 @@ class Navbar extends StatefulWidget {
   final int selectedIndex;
 
   @override
-  _NavbarState createState() => _NavbarState();
+  State<Navbar> createState() => _NavbarState();
 }
 
 class _NavbarState extends State<Navbar> {

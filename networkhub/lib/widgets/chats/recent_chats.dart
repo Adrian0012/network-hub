@@ -9,7 +9,7 @@ class RecentChats extends StatefulWidget {
   final List<Channel> channels;
 
   @override
-  _RecentChatsState createState() => _RecentChatsState();
+  State<RecentChats> createState() => _RecentChatsState();
 }
 
 class _RecentChatsState extends State<RecentChats> {
