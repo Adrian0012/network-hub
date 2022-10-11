@@ -30,7 +30,10 @@ class ApiProvider {
     if (response.statusCode == 200) {
       final responseData = json.decode(response.body);
       if (responseData != null) {
-        _storageService.write(key: Token.key, value: responseData['token']);
+        await _storageService.write(
+          key: Token.key,
+          value: responseData['token'],
+        );
         return true;
       } else {
         throw 'Login - API Response error';

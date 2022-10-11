@@ -23,7 +23,9 @@ class _ChannelDetailScreenState extends State<ChannelDetailScreen> {
 
   @override
   void initState() {
-    _channelDetailsBloc.add(GetChannelDetails(widget.channel));
+    _channelDetailsBloc.add(
+      GetChannelDetails(widget.channel),
+    );
     super.initState();
   }
 
@@ -137,10 +139,7 @@ Widget _buildMessage(BuildContext context, ChannelMessage msg, bool isMe) {
             bottom: 8.0,
             left: 80.0,
           )
-        : const EdgeInsets.only(
-            top: 8.0,
-            bottom: 8.0,
-          ),
+        : const EdgeInsets.only(top: 8.0, bottom: 8.0),
     padding: const EdgeInsets.symmetric(
       horizontal: 25.0,
       vertical: 15.0,

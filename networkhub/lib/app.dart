@@ -16,28 +16,22 @@ class App extends StatelessWidget {
     UserRepository userRepository = UserRepository();
 
     return MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider.value(value: authRepository),
+        RepositoryProvider.value(value: userRepository),
+      ],
+      child: MultiBlocProvider(
         providers: [
-          RepositoryProvider.value(value: authRepository),
-          RepositoryProvider.value(value: userRepository),
-        ],
-        child: MultiBlocProvider(
-          providers: [
-            BlocProvider(
-              create: (_) => AuthenticationBloc(
-                authenticationRepository: authRepository,
-                userRepository: userRepository,
-              ),
+          BlocProvider(
+            create: (_) => AuthenticationBloc(
+              authenticationRepository: authRepository,
+              userRepository: userRepository,
             ),
-          ],
-          child: const AppView(),
-
-          // child: BlocListener<AuthenticationBloc, AuthenticationState>(
-          //   listener: (context, state) {
-          //     context.read<AuthenticationBloc>().establishConnection();
-          //   },
-          //   child: const AppView(),
-          // ),
-        ));
+          ),
+        ],
+        child: const AppView(),
+      ),
+    );
   }
 }
 
@@ -57,8 +51,9 @@ class AppView extends StatelessWidget {
           scaffoldMessengerKey: AppRouter.scaffoldMessengerKey,
           routeInformationParser: BeamerParser(),
           routerDelegate: routerDelegate,
-          backButtonDispatcher:
-              BeamerBackButtonDispatcher(delegate: routerDelegate),
+          backButtonDispatcher: BeamerBackButtonDispatcher(
+            delegate: routerDelegate,
+          ),
           theme: ThemeData(
             primaryColor: Colors.deepPurple,
             accentColor: Colors.purpleAccent,

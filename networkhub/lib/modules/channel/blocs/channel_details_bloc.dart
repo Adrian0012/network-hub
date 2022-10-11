@@ -13,14 +13,12 @@ class ChannelDetailsBloc
     extends Bloc<ChannelDetailsEvent, ChannelDetailsState> {
   ChannelDetailsBloc() : super(ChannelDetailsInitial()) {
     final ChannelRepository channelRepository = ChannelRepository();
-    final PusherService pusherService = PusherService();
 
     on<GetChannelDetails>((event, emit) async {
       emit(ChannelDetailsLoading());
       final List<ChannelMessage> channelMessages = await channelRepository
           .fetchChannelMessages(event.channel.channelHash);
       if (channelMessages.isNotEmpty) {
-        pusherService.establishConnection();
         emit(ChannelDetailsLoaded(channelMessages));
       } else {
         emit(const ChannelDetailsError('GET Channels Messages Error'));
@@ -41,7 +39,9 @@ class ChannelDetailsBloc
         );
         final ChannelMessage newMessage =
             ChannelMessage(null, event.message, user, DateTime.now(), null);
-        emit(ChannelDetailsLoaded(List.from(state.messages)..add(newMessage)));
+        emit(
+          ChannelDetailsLoaded(List.from(state.messages)..add(newMessage)),
+        );
       }
     });
 
@@ -59,10 +59,16 @@ class ChannelDetailsBloc
         );
         final ChannelMessage newMessage = ChannelMessage(
             null, event.message['message'], user, DateTime.now(), null);
-        emit(ChannelDetailsLoaded(List.from(state.messages)..add(newMessage)));
+        emit(
+          ChannelDetailsLoaded(List.from(state.messages)..add(newMessage)),
+        );
       }
     });
-    pusherService.messages
-        .listen((message) => add(ReceiveChannelMessage(message)));
+    // psuher listener
+    PusherService.instance().messagesStreamController.stream.listen((event) {
+      if (event['message'] != null) {
+        add(ReceiveChannelMessage(event));
+      }
+    });
   }
 }

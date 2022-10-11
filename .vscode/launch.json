@@ -5,18 +5,16 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "networkhub",
+      "name": "networkhub-local",
       "cwd": "networkhub",
       "request": "launch",
       "type": "dart",
-      "args": [],
-    },
-    {
-      "name": "networkhub (profile mode)",
-      "cwd": "networkhub",
-      "request": "launch",
-      "type": "dart",
-      "flutterMode": "profile"
+      // enable for web app
+      // "args": ["--web-renderer=html"],
+      "toolArgs": [
+        "--dart-define",
+        "API_BASE_URL=https://3569-5-42-133-2.ngrok.io"
+    ]
     },
   ]
 }
