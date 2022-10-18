@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:networkhub/common/authentication/models/user.dart';
+import 'package:networkhub/common/authentication/repositories/user_repository.dart';
 import 'package:networkhub/modules/channel/models/channel.dart';
 import 'package:networkhub/modules/channel/models/channel_message.dart';
 import 'package:networkhub/modules/channel/repositories/channel_repository.dart';
@@ -11,7 +12,10 @@ part 'channel_details_state.dart';
 
 class ChannelDetailsBloc
     extends Bloc<ChannelDetailsEvent, ChannelDetailsState> {
-  ChannelDetailsBloc() : super(ChannelDetailsInitial()) {
+  final UserRepository _userRepository;
+  ChannelDetailsBloc({required UserRepository userRepository})
+      : _userRepository = userRepository,
+        super(ChannelDetailsInitial()) {
     final ChannelRepository channelRepository = ChannelRepository();
 
     on<GetChannelDetails>((event, emit) async {
@@ -48,15 +52,7 @@ class ChannelDetailsBloc
     on<ReceiveChannelMessage>((event, emit) async {
       if (state is ChannelDetailsLoaded) {
         final state = this.state as ChannelDetailsLoaded;
-        const User user = User(
-          userHash: '',
-          email: 'adrian@code.je',
-          firstName: 'Adrian',
-          lastName: 'Lang',
-          country: 'Jersey',
-          profileImage: '',
-          userColor: '',
-        );
+        final User user = _userRepository.userStreamController.value;
         final ChannelMessage newMessage = ChannelMessage(
             null, event.message['message'], user, DateTime.now(), null);
         emit(

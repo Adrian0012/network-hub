@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:networkhub/common/authentication/repositories/user_repository.dart';
 import 'package:networkhub/modules/channel/blocs/channel_details_bloc.dart';
 import 'package:networkhub/modules/channel/models/channel.dart';
 import 'package:networkhub/modules/channel/models/channel_message.dart';
@@ -19,16 +20,6 @@ class ChannelDetailScreen extends StatefulWidget {
 }
 
 class _ChannelDetailScreenState extends State<ChannelDetailScreen> {
-  final ChannelDetailsBloc _channelDetailsBloc = ChannelDetailsBloc();
-
-  @override
-  void initState() {
-    _channelDetailsBloc.add(
-      GetChannelDetails(widget.channel),
-    );
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,6 +56,9 @@ class _ChannelDetailScreenState extends State<ChannelDetailScreen> {
   }
 
   Widget _buildMessageList() {
+    final ChannelDetailsBloc _channelDetailsBloc =
+        ChannelDetailsBloc(userRepository: context.read<UserRepository>());
+    _channelDetailsBloc.add(GetChannelDetails(widget.channel));
     return BlocProvider(
       create: (_) => _channelDetailsBloc,
       child: BlocListener<ChannelDetailsBloc, ChannelDetailsState>(

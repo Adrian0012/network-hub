@@ -32,6 +32,7 @@ dependencies:
   flutter_secure_storage: ^6.0.0
   pusher_channels_flutter: ^2.0.1
   flutter_dotenv: ^5.0.2
+  rxdart: ^0.27.5
 
 flutter:
   uses-material-design: true
