@@ -5,7 +5,7 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "networkhub-local-mobile",
+      "name": "LOCAL-Mobile-networkhub",
       "cwd": "networkhub",
       "request": "launch",
       "type": "dart",
@@ -15,7 +15,7 @@
     ]
     },
     {
-      "name": "networkhub-local-web",
+      "name": "LOCAL-Web-networkhub",
       "cwd": "networkhub",
       "request": "launch",
       "type": "dart",
