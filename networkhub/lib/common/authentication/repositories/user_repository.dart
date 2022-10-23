@@ -14,7 +14,7 @@ class UserRepository {
     return user;
   }
 
-  void updateUser() {
-    userStreamController.add(User.empty);
+  void updateUser(User user) {
+    userStreamController.add(user);
   }
 }

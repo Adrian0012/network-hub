@@ -14,10 +14,11 @@ class GetChannelDetails extends ChannelDetailsEvent {
 
 class SendChannelMessage extends ChannelDetailsEvent {
   final String message;
-  const SendChannelMessage(this.message);
+  final String channelHash;
+  const SendChannelMessage(this.message, this.channelHash);
 
   @override
-  List<Object> get props => [message];
+  List<Object> get props => [message, channelHash];
 }
 
 class ReceiveChannelMessage extends ChannelDetailsEvent {

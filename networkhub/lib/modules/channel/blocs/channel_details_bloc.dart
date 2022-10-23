@@ -23,28 +23,28 @@ class ChannelDetailsBloc
       final List<ChannelMessage> channelMessages = await channelRepository
           .fetchChannelMessages(event.channel.channelHash);
       if (channelMessages.isNotEmpty) {
-        emit(ChannelDetailsLoaded(channelMessages));
+        PusherService.instance().onPusherSubscribe(
+          event.channel.channelHash,
+        );
+        emit(ChannelDetailsLoaded(channelMessages, event.channel.channelHash));
       } else {
-        emit(const ChannelDetailsError('GET Channels Messages Error'));
+        PusherService.instance().onPusherSubscribe(event.channel.channelHash);
+        emit(ChannelDetailsLoaded(const [], event.channel.channelHash));
       }
     });
 
     on<SendChannelMessage>((event, emit) async {
       if (state is ChannelDetailsLoaded) {
         final state = this.state as ChannelDetailsLoaded;
-        const User user = User(
-          userHash: '',
-          email: 'adrian@code.je',
-          firstName: 'Adrian',
-          lastName: 'Lang',
-          country: 'Jersey',
-          profileImage: '',
-          userColor: '',
-        );
-        final ChannelMessage newMessage =
-            ChannelMessage(null, event.message, user, DateTime.now(), null);
+        final User user = _userRepository.userStreamController.value;
+        final ChannelMessage newMessage = ChannelMessage(
+            null, event.message, user, DateTime.now(), event.channelHash);
+        channelRepository.sendMessage(newMessage);
         emit(
-          ChannelDetailsLoaded(List.from(state.messages)..add(newMessage)),
+          ChannelDetailsLoaded(
+            List.from(state.messages)..add(newMessage),
+            event.channelHash,
+          ),
         );
       }
     });
@@ -56,11 +56,14 @@ class ChannelDetailsBloc
         final ChannelMessage newMessage = ChannelMessage(
             null, event.message['message'], user, DateTime.now(), null);
         emit(
-          ChannelDetailsLoaded(List.from(state.messages)..add(newMessage)),
+          ChannelDetailsLoaded(
+            List.from(state.messages)..add(newMessage),
+            event.message['message'],
+          ),
         );
       }
     });
-    // psuher listener
+    // pusher listener
     PusherService.instance().messagesStreamController.stream.listen((event) {
       if (event['message'] != null) {
         add(ReceiveChannelMessage(event));

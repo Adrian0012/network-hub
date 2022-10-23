@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1042168801726",
+    "project_id": "networkhub-cf653",
+    "storage_bucket": "networkhub-cf653.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1042168801726:android:f34aa87c9756d84c21f1ef",
+        "android_client_info": {
+          "package_name": "je.networkhub.networkhub"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1042168801726-l14qotta5p8u07fv2if5473ifnu0uup3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAI3lY-oZcl6ym5l4bMtFXNnlbA9Dub3Lc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1042168801726-l14qotta5p8u07fv2if5473ifnu0uup3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

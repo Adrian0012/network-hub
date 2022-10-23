@@ -69,12 +69,29 @@ class ApiProvider {
     }
   }
 
+  Future<bool> initializeSkynet() async {
+    Map<String, String> headers = {
+      "Content-type": "application/json",
+      "Accept": "application/json",
+    };
+    Response response = await get(
+      Uri.parse('$_baseApi/initialize_skynet'),
+      headers: headers,
+    );
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   Future<List<Channel>> fetchChannelList() async {
-    String? _securityToken =
+    String? securityToken =
         await _storageService.read(key: Token.key) as String;
     Map<String, String> headers = {
       "Content-type": "application/json",
       "Accept": "application/json",
+      "Authorization": "Token $securityToken",
     };
     Response response = await get(
       Uri.parse('$_baseApi/channels/'),
@@ -96,12 +113,15 @@ class ApiProvider {
   }
 
   Future<List<ChannelMessage>> fetchChannelMessages(String channelId) async {
+    String? securityToken =
+        await _storageService.read(key: Token.key) as String;
     Map<String, String> headers = {
       "Content-type": "application/json",
       "Accept": "application/json",
+      "Authorization": "Token $securityToken",
     };
     Response response = await get(
-      Uri.parse('$_baseApi/messages/channel/$channelId'),
+      Uri.parse('$_baseApi/channel/$channelId/messages'),
       headers: headers,
     );
     if (response.statusCode == 200) {
@@ -117,5 +137,21 @@ class ApiProvider {
       // TODO send a sentry error
       throw 'API Error';
     }
+  }
+
+  void sendMessage(ChannelMessage message) async {
+    String? securityToken =
+        await _storageService.read(key: Token.key) as String;
+    final String channeld = message.channelHash as String;
+    Map<String, String> headers = {
+      "Content-type": "application/json",
+      "Accept": "application/json",
+      "Authorization": "Token $securityToken",
+    };
+    await post(
+      Uri.parse('$_baseApi/channel/$channeld/messages/'),
+      headers: headers,
+      body: jsonEncode(message.toJson()),
+    );
   }
 }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:networkhub/config/urls.dart';
 import 'package:networkhub/modules/channel/models/channel.dart';
 import 'package:intl/intl.dart';
+import 'package:networkhub/services/pusher/pusher_service.dart';
 
 class RecentChats extends StatefulWidget {
   const RecentChats({Key? key, required this.channels}) : super(key: key);
@@ -35,10 +36,11 @@ class _RecentChatsState extends State<RecentChats> {
                 itemBuilder: (BuildContext content, int index) {
                   final Channel channel = widget.channels[index];
                   return GestureDetector(
-                    onTap: (() => Beamer.of(context).beamToNamed(
-                          Routes.channelDetail,
-                          data: {'channel': channel},
-                        )),
+                    onTap: (() {
+                      PusherService.instance().onPusherUnSubscribe(null);
+                      Beamer.of(context).beamToNamed(Routes.channelDetail,
+                          data: {'channel': channel});
+                    }),
                     child: Container(
                       decoration: const BoxDecoration(
                           // if channel is accessed then color is white else this

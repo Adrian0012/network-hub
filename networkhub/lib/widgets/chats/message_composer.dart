@@ -3,8 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:networkhub/modules/channel/blocs/channel_details_bloc.dart';
 
 class MessageComposer extends StatefulWidget {
-  const MessageComposer({Key? key}) : super(key: key);
-
+  const MessageComposer({Key? key, required this.channelHash})
+      : super(key: key);
+  final String channelHash;
   @override
   State<MessageComposer> createState() => _MessageComposerState();
 }
@@ -42,7 +43,8 @@ class _MessageComposerState extends State<MessageComposer> {
                   hintText: 'Send a message...'),
               onSubmitted: ((value) => {
                     context.read<ChannelDetailsBloc>().add(
-                          SendChannelMessage(messageController.text),
+                          SendChannelMessage(
+                              messageController.text, widget.channelHash),
                         ),
                     messageController.clear()
                   }),

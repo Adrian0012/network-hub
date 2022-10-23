@@ -7,6 +7,7 @@ import 'package:networkhub/common/authentication/repositories/user_repository.da
 import 'package:networkhub/modules/channel/blocs/channel_details_bloc.dart';
 import 'package:networkhub/modules/channel/models/channel.dart';
 import 'package:networkhub/modules/channel/models/channel_message.dart';
+import 'package:networkhub/services/pusher/pusher_service.dart';
 import 'package:networkhub/widgets/chats/message_composer.dart';
 
 class ChannelDetailScreen extends StatefulWidget {
@@ -30,6 +31,8 @@ class _ChannelDetailScreenState extends State<ChannelDetailScreen> {
           iconSize: 30.0,
           color: Colors.white,
           onPressed: () {
+            PusherService.instance()
+                .onPusherUnSubscribe(widget.channel.channelHash);
             Beamer.of(context).beamBack();
           },
         ),
@@ -56,11 +59,11 @@ class _ChannelDetailScreenState extends State<ChannelDetailScreen> {
   }
 
   Widget _buildMessageList() {
-    final ChannelDetailsBloc _channelDetailsBloc =
+    final ChannelDetailsBloc channelDetailsBloc =
         ChannelDetailsBloc(userRepository: context.read<UserRepository>());
-    _channelDetailsBloc.add(GetChannelDetails(widget.channel));
+    channelDetailsBloc.add(GetChannelDetails(widget.channel));
     return BlocProvider(
-      create: (_) => _channelDetailsBloc,
+      create: (_) => channelDetailsBloc,
       child: BlocListener<ChannelDetailsBloc, ChannelDetailsState>(
         listener: (context, state) {
           if (state is ChannelDetailsError) {
@@ -78,8 +81,7 @@ class _ChannelDetailScreenState extends State<ChannelDetailScreen> {
           } else if (state is ChannelDetailsLoading) {
             return _buildLoading();
           } else if (state is ChannelDetailsLoaded) {
-            // return _buildChat(context, state.messages, widget.channel);
-            return _buildChatScreen(context, state.messages);
+            return _buildChatScreen(context, state.messages, state.channelHash);
           } else {
             // TODO create an error page
             return Container();
@@ -90,7 +92,8 @@ class _ChannelDetailScreenState extends State<ChannelDetailScreen> {
   }
 }
 
-Widget _buildChatScreen(BuildContext context, List<ChannelMessage> model) {
+Widget _buildChatScreen(
+    BuildContext context, List<ChannelMessage> model, String channelHash) {
   return GestureDetector(
     onTap: () => FocusScope.of(context).unfocus(),
     child: Column(
@@ -108,18 +111,21 @@ Widget _buildChatScreen(BuildContext context, List<ChannelMessage> model) {
               child: ListView.builder(
                   reverse: true,
                   padding: const EdgeInsets.only(top: 15.0),
-                  itemCount: model.length,
+                  itemCount: model.isNotEmpty ? model.length : 0,
                   itemBuilder: (BuildContext context, int index) {
                     final ChannelMessage msg = model[index];
-                    const bool isMe = false;
-                    // bool that check if the message has been sent by me or not
+                    bool isMe = msg.fromUser.userHash ==
+                        context
+                            .read<UserRepository>()
+                            .userStreamController
+                            .value
+                            .userHash;
                     return _buildMessage(context, msg, isMe);
                   }),
             ),
           ),
         ),
-        // _buildMessageComposer(context)
-        const MessageComposer()
+        MessageComposer(channelHash: channelHash)
       ],
     ),
   );

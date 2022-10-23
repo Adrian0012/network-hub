@@ -6,7 +6,6 @@ import 'package:networkhub/modules/channel/models/channel_message.dart';
 
 class ChannelRepository {
   final _provider = ApiProvider();
-  final _channelDetailsController = StreamController<Map<String, dynamic>>();
 
   Future<List<Channel>> fetchChannelList() {
     return _provider.fetchChannelList();
@@ -16,10 +15,8 @@ class ChannelRepository {
     return _provider.fetchChannelMessages(channelId);
   }
 
-  void messageReceived({
-    required Map<String, dynamic> message,
-  }) {
-    _channelDetailsController.add(message);
+  void sendMessage(ChannelMessage message) {
+    _provider.sendMessage(message);
   }
 }
 

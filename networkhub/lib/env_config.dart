@@ -1,7 +1,7 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class EnvironmentConfig {
-  static const String appENV = 'dev';
+  static String appENV = 'development';
 
   static String sentryDSN = dotenv.env['SENTRY_DSN_KEY'] as String;
 

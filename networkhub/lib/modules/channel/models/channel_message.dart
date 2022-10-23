@@ -7,9 +7,9 @@ part 'channel_message.g.dart';
 @JsonSerializable()
 class ChannelMessage extends Equatable {
   final String? messageHash;
-  final String? content;
-  final User? fromUser;
-  final DateTime? createdAt;
+  final String content;
+  final User fromUser;
+  final DateTime createdAt;
   final String? channelHash;
 
   ChannelMessage(

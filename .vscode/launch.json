@@ -5,15 +5,24 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "networkhub-local",
+      "name": "networkhub-local-mobile",
       "cwd": "networkhub",
       "request": "launch",
       "type": "dart",
-      // enable for web app
-      // "args": ["--web-renderer=html"],
       "toolArgs": [
         "--dart-define",
-        "API_BASE_URL=https://3569-5-42-133-2.ngrok.io"
+        "API_BASE_URL=https://e9a6-185-16-69-101.ngrok.io"
+    ]
+    },
+    {
+      "name": "networkhub-local-web",
+      "cwd": "networkhub",
+      "request": "launch",
+      "type": "dart",
+      "args": ["--web-renderer=html"],
+      "toolArgs": [
+        "--dart-define",
+        "API_BASE_URL=https://e9a6-185-16-69-101.ngrok.io"
     ]
     },
   ]

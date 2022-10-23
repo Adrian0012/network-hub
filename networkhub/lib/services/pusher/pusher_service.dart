@@ -1,8 +1,8 @@
-import 'dart:async';
 import 'dart:convert';
 
 import 'package:networkhub/env_config.dart';
 import 'package:pusher_channels_flutter/pusher_channels_flutter.dart';
+import 'package:rxdart/rxdart.dart';
 
 class PusherService {
   PusherChannelsFlutter pusher = PusherChannelsFlutter.getInstance();
@@ -14,69 +14,61 @@ class PusherService {
 
   factory PusherService.instance() => _instance ?? PusherService._();
 
-  StreamController<Map<String, dynamic>> messagesStreamController =
-      StreamController<Map<String, dynamic>>.broadcast();
-
-  void log(String text) {
-    // ignore: avoid_print
-    print("LOG: $text");
-  }
+  BehaviorSubject<Map<String, dynamic>> messagesStreamController =
+      BehaviorSubject<Map<String, dynamic>>();
 
   void initializePusher() async {
-    try {
-      await pusher.init(
-        apiKey: EnvironmentConfig.pusherApiKey,
-        cluster: EnvironmentConfig.pusherCluster,
-        onConnectionStateChange: onConnectionStateChange,
-        onError: onPusherError,
-        onSubscriptionSucceeded: onSubscriptionSucceeded,
-        onEvent: onPusherEvent,
-        onSubscriptionError: onSubscriptionError,
-        onDecryptionFailure: onDecryptionFailure,
-        onMemberAdded: onMemberAdded,
-        onMemberRemoved: onMemberRemoved,
-        // authEndpoint: "<Your Authendpoint Url>",
-        // onAuthorizer: onAuthorizer
-      );
-      await pusher.subscribe(channelName: EnvironmentConfig.pusherChannelName);
-      await pusher.connect();
-    } catch (e) {
-      log("ERROR: $e");
-    }
+    await pusher.init(
+      apiKey: EnvironmentConfig.pusherApiKey,
+      cluster: EnvironmentConfig.pusherCluster,
+      onConnectionStateChange: onConnectionStateChange,
+      onError: onPusherError,
+      onSubscriptionSucceeded: onSubscriptionSucceeded,
+      onEvent: onPusherEvent,
+      onSubscriptionError: onSubscriptionError,
+      onDecryptionFailure: onDecryptionFailure,
+      onMemberAdded: onMemberAdded,
+      onMemberRemoved: onMemberRemoved,
+      // authEndpoint: "<Your Authendpoint Url>",
+      // onAuthorizer: onAuthorizer
+    );
+    await pusher.connect();
   }
 
   void onPusherEvent(PusherEvent event) {
-    log("onEvent: $event");
-    messagesStreamController.sink.add(json.decode(event.data));
+    if (!messagesStreamController.isClosed) {
+      messagesStreamController.add(json.decode(event.data));
+    }
   }
 
-  void onConnectionStateChange(dynamic currentState, dynamic previousState) {
-    log("Connection: $currentState");
+  onPusherSubscribe(String? channelName) async {
+    if (channelName != null) {
+      await pusher.subscribe(channelName: channelName);
+    } else {
+      await pusher.subscribe(channelName: EnvironmentConfig.pusherChannelName);
+    }
   }
 
-  void onPusherError(String message, int? code, dynamic e) {
-    log("onError: $message code: $code exception: $e");
+  onPusherUnSubscribe(String? channelName) async {
+    if (channelName != null) {
+      await pusher.unsubscribe(channelName: channelName);
+    } else {
+      await pusher.unsubscribe(
+          channelName: EnvironmentConfig.pusherChannelName);
+    }
   }
 
-  void onSubscriptionSucceeded(String channelName, dynamic data) {
-    log("onSubscriptionSucceeded: $channelName data: $data");
-    final me = pusher.getChannel(channelName)?.me;
-    log("Me: $me");
-  }
+  void onConnectionStateChange(dynamic currentState, dynamic previousState) {}
 
-  void onSubscriptionError(String message, dynamic e) {
-    log("onSubscriptionError: $message Exception: $e");
-  }
+  void onPusherError(String message, int? code, dynamic e) {}
 
-  void onDecryptionFailure(String event, String reason) {
-    log("onDecryptionFailure: $event reason: $reason");
-  }
+  void onSubscriptionSucceeded(String channelName, dynamic data) {}
 
-  void onMemberAdded(String channelName, PusherMember member) {
-    log("onMemberAdded: $channelName user: $member");
-  }
+  void onSubscriptionError(String message, dynamic e) {}
 
-  void onMemberRemoved(String channelName, PusherMember member) {
-    log("onMemberRemoved: $channelName user: $member");
-  }
+  void onDecryptionFailure(String event, String reason) {}
+
+  void onMemberAdded(String channelName, PusherMember member) {}
+
+  void onMemberRemoved(String channelName, PusherMember member) {}
 }

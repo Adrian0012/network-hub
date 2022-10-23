@@ -33,6 +33,7 @@ dependencies:
   pusher_channels_flutter: ^2.0.1
   flutter_dotenv: ^5.0.2
   rxdart: ^0.27.5
+  pusher_beams: ^1.1.1
 
 flutter:
   uses-material-design: true

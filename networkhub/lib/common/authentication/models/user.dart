@@ -27,8 +27,11 @@ class User extends Equatable {
           firstName: json['firstName']! as String,
           lastName: json['lastName']! as String,
           country: json['country']! as String,
-          profileImage: json['profileImage']! as String,
-          userColor: json['userColor']! as String,
+          profileImage: json['profileImage'] == null
+              ? ''
+              : json['profileImage']! as String,
+          userColor:
+              json['userColor'] == null ? '' : json['userColor']! as String,
         );
 
   @override
@@ -53,4 +56,23 @@ class User extends Equatable {
       'userColor': userColor,
     };
   }
+
+  User copywith({
+    String? userHash,
+    String? email,
+    String? firstName,
+    String? lastName,
+    String? country,
+    String? profileImage,
+    String? userColor,
+  }) =>
+      User(
+        userHash: userHash ?? this.userHash,
+        email: email ?? this.email,
+        firstName: firstName ?? this.firstName,
+        lastName: lastName ?? this.lastName,
+        country: country ?? this.country,
+        profileImage: profileImage ?? this.profileImage,
+        userColor: userColor ?? this.userColor,
+      );
 }

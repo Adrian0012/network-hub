@@ -28,7 +28,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
     final String userEmail =
-        context.watch<AuthenticationBloc>().state.user.email as String;
+        context.read<AuthenticationBloc>().state.user.email as String;
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
       appBar: AppBar(
