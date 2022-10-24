@@ -1,6 +1,10 @@
+// ignore_for_file: avoid_print
+
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:networkhub/env_config.dart';
+import 'package:pusher_beams/pusher_beams.dart';
 import 'package:pusher_channels_flutter/pusher_channels_flutter.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -16,7 +20,8 @@ class PusherService {
 
   BehaviorSubject<Map<String, dynamic>> messagesStreamController =
       BehaviorSubject<Map<String, dynamic>>();
-
+  //============================================================================
+  // Pusher Channels
   void initializePusher() async {
     await pusher.init(
       apiKey: EnvironmentConfig.pusherApiKey,
@@ -71,4 +76,52 @@ class PusherService {
   void onMemberAdded(String channelName, PusherMember member) {}
 
   void onMemberRemoved(String channelName, PusherMember member) {}
+  // ===========================================================================
+
+  // ===========================================================================
+  // Pusher Beams
+  getSecure() async {
+    final BeamsAuthProvider provider = BeamsAuthProvider()
+      ..authUrl = 'https://some-auth-url.com/secure'
+      ..headers = {'Content-Type': 'application/json'}
+      ..queryParams = {'page': '1'}
+      ..credentials = 'omit';
+
+    await PusherBeams.instance.setUserId(
+        'user-id',
+        provider,
+        (error) => {
+              if (error != null) {print(error)}
+
+              // Success! Do something...
+            });
+  }
+
+  initPusherBeams() async {
+    // Let's see our current interests
+    print(await PusherBeams.instance.getDeviceInterests());
+
+    // This is not intented to use in web
+    if (!kIsWeb) {
+      await PusherBeams.instance
+          .onInterestChanges((interests) => {print('Interests: $interests')});
+
+      await PusherBeams.instance
+          .onMessageReceivedInTheForeground(_onMessageReceivedInTheForeground);
+    }
+    await _checkForInitialMessage();
+  }
+
+  Future<void> _checkForInitialMessage() async {
+    final initialMessage = await PusherBeams.instance.getInitialMessage();
+    if (initialMessage != null) {
+      print(initialMessage.toString());
+    }
+  }
+
+  void _onMessageReceivedInTheForeground(Map<Object?, Object?> data) {
+    print(data["title"].toString());
+    print(data["body"].toString());
+  }
+  // ===========================================================================
 }

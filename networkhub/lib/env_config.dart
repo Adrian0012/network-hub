@@ -10,4 +10,7 @@ class EnvironmentConfig {
   static String pusherCluster = dotenv.env['PUSHER_CLUSTER'] as String;
 
   static String pusherChannelName = dotenv.env['PUSHER_CHANNEL'] as String;
+
+  static String pusherBeamsInstanceId =
+      dotenv.env['PUSHER_BEAMS_INSTANCE_ID'] as String;
 }
