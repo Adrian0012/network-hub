@@ -79,9 +79,14 @@ class ApiProvider {
       headers: headers,
     );
     if (response.statusCode == 200) {
-      return true;
+      final responseData = json.decode(response.body)['data'];
+      if (responseData) {
+        return true;
+      } else {
+        return false;
+      }
     } else {
-      return false;
+      throw 'API Initialize Skynet Error';
     }
   }
 

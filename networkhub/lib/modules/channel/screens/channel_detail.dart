@@ -146,7 +146,9 @@ Widget _buildMessage(BuildContext context, ChannelMessage msg, bool isMe) {
     ),
     width: MediaQuery.of(context).size.width * 0.75,
     decoration: BoxDecoration(
-      color: isMe ? Theme.of(context).accentColor : Color(0xFFFFEFEE),
+      color: isMe
+          ? Theme.of(context).accentColor
+          : Color(int.parse(msg.fromUser.userColor as String)),
       borderRadius: isMe
           ? const BorderRadius.only(
               topLeft: Radius.circular(15.0),

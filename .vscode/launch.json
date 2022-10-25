@@ -11,7 +11,7 @@
       "type": "dart",
       "toolArgs": [
         "--dart-define",
-        "API_BASE_URL=https://e9a6-185-16-69-101.ngrok.io"
+        "API_BASE_URL=https://3584-185-16-70-58.ngrok.io"
     ]
     },
     {

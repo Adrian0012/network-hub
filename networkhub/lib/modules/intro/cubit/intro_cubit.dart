@@ -11,10 +11,11 @@ class IntroCubit extends Cubit<IntroState> {
   final ApiProvider _apiProvider = ApiProvider();
 
   Future<void> initSkynet(BuildContext context) async {
-    var route = Beamer.of(context).beamToNamed(Routes.dashboard);
-    bool respose = await _apiProvider.initializeSkynet();
-    if (respose) {
-      route;
+    // good example of getting some data and beaming to a location
+    var route = Beamer.of(context);
+    bool response = await _apiProvider.initializeSkynet();
+    if (response) {
+      route.beamToNamed(Routes.dashboard);
     }
   }
 }

@@ -26,10 +26,10 @@ class ChannelBloc extends Bloc<ChannelEvent, ChannelState> {
       }
     });
     // pusher listener
-    pusherStreamController.stream.listen((event) {
-      if (event['message'] != null) {
-        add(GetChannelsList());
-      }
-    });
+    // pusherStreamController.stream.listen((event) {
+    //   if (event['message'] != null) {
+    //     add(GetChannelsList());
+    //   }
+    // });
   }
 }

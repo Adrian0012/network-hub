@@ -42,7 +42,7 @@ class ChannelDetailsBloc
         channelRepository.sendMessage(newMessage);
         emit(
           ChannelDetailsLoaded(
-            List.from(state.messages)..add(newMessage),
+            List.from(state.messages)..insert(0, newMessage),
             event.channelHash,
           ),
         );
@@ -52,12 +52,17 @@ class ChannelDetailsBloc
     on<ReceiveChannelMessage>((event, emit) async {
       if (state is ChannelDetailsLoaded) {
         final state = this.state as ChannelDetailsLoaded;
-        final User user = _userRepository.userStreamController.value;
+        final User user = User.fromJson(event.message['fromUser']);
         final ChannelMessage newMessage = ChannelMessage(
-            null, event.message['message'], user, DateTime.now(), null);
+          null,
+          event.message['message'],
+          user,
+          DateTime.now(),
+          event.message['channelHash'],
+        );
         emit(
           ChannelDetailsLoaded(
-            List.from(state.messages)..add(newMessage),
+            List.from(state.messages)..insert(0, newMessage),
             event.message['message'],
           ),
         );
