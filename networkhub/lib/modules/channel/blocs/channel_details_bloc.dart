@@ -5,6 +5,7 @@ import 'package:networkhub/common/authentication/repositories/user_repository.da
 import 'package:networkhub/modules/channel/models/channel.dart';
 import 'package:networkhub/modules/channel/models/channel_message.dart';
 import 'package:networkhub/modules/channel/repositories/channel_repository.dart';
+import 'package:networkhub/services/pusher/models/pusher_response.dart';
 import 'package:networkhub/services/pusher/pusher_service.dart';
 
 part 'channel_details_event.dart';
@@ -13,8 +14,12 @@ part 'channel_details_state.dart';
 class ChannelDetailsBloc
     extends Bloc<ChannelDetailsEvent, ChannelDetailsState> {
   final UserRepository _userRepository;
-  ChannelDetailsBloc({required UserRepository userRepository})
-      : _userRepository = userRepository,
+  final PusherService _pusherService;
+  ChannelDetailsBloc({
+    required UserRepository userRepository,
+    required PusherService pusherService,
+  })  : _userRepository = userRepository,
+        _pusherService = pusherService,
         super(ChannelDetailsInitial()) {
     final ChannelRepository channelRepository = ChannelRepository();
 
@@ -52,27 +57,29 @@ class ChannelDetailsBloc
     on<ReceiveChannelMessage>((event, emit) async {
       if (state is ChannelDetailsLoaded) {
         final state = this.state as ChannelDetailsLoaded;
-        final User user = User.fromJson(event.message['fromUser']);
         final ChannelMessage newMessage = ChannelMessage(
           null,
-          event.message['message'],
-          user,
+          event.data.message,
+          event.data.fromUser,
           DateTime.now(),
-          event.message['channelHash'],
+          event.data.channelHash,
         );
         emit(
           ChannelDetailsLoaded(
             List.from(state.messages)..insert(0, newMessage),
-            event.message['message'],
+            event.data.channelHash as String,
           ),
         );
       }
     });
     // pusher listener
-    PusherService.instance().messagesStreamController.stream.listen((event) {
-      if (event['message'] != null) {
-        add(ReceiveChannelMessage(event));
-      }
+    _pusherService.messagesStreamController.stream.listen((event) {
+      add(ReceiveChannelMessage(event));
     });
+  }
+  @override
+  Future<void> close() {
+    _pusherService.messagesStreamController.close();
+    return super.close();
   }
 }

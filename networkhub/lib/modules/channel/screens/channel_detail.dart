@@ -59,8 +59,9 @@ class _ChannelDetailScreenState extends State<ChannelDetailScreen> {
   }
 
   Widget _buildMessageList() {
-    final ChannelDetailsBloc channelDetailsBloc =
-        ChannelDetailsBloc(userRepository: context.read<UserRepository>());
+    final ChannelDetailsBloc channelDetailsBloc = ChannelDetailsBloc(
+        userRepository: context.read<UserRepository>(),
+        pusherService: PusherService.instance());
     channelDetailsBloc.add(GetChannelDetails(widget.channel));
     return BlocProvider(
       create: (_) => channelDetailsBloc,

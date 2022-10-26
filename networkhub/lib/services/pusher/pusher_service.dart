@@ -4,6 +4,7 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:networkhub/env_config.dart';
+import 'package:networkhub/services/pusher/models/pusher_response.dart';
 import 'package:pusher_beams/pusher_beams.dart';
 import 'package:pusher_channels_flutter/pusher_channels_flutter.dart';
 import 'package:rxdart/rxdart.dart';
@@ -18,11 +19,12 @@ class PusherService {
 
   factory PusherService.instance() => _instance ?? PusherService._();
 
-  BehaviorSubject<Map<String, dynamic>> messagesStreamController =
-      BehaviorSubject<Map<String, dynamic>>();
+  BehaviorSubject<PusherResponse> messagesStreamController =
+      BehaviorSubject<PusherResponse>();
   //============================================================================
   // Pusher Channels
   void initializePusher() async {
+    var x = pusher.connectionState;
     await pusher.init(
       apiKey: EnvironmentConfig.pusherApiKey,
       cluster: EnvironmentConfig.pusherCluster,
@@ -41,9 +43,14 @@ class PusherService {
   }
 
   void onPusherEvent(PusherEvent event) {
-    if (!messagesStreamController.isClosed) {
-      messagesStreamController.add(json.decode(event.data));
-    }
+    Map<String, dynamic> response = jsonDecode(event.data);
+    Map<String, dynamic> responseData = {
+      "message": response['message'],
+      "channelHash": response['channelHash'],
+      "fromUser": jsonDecode(response['fromUser']),
+    };
+    PusherResponse data = PusherResponse.fromJson(responseData);
+    messagesStreamController.add(data);
   }
 
   onPusherSubscribe(String? channelName) async {
