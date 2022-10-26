@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:networkhub/common/authentication/models/user.dart';
@@ -15,6 +17,7 @@ class ChannelDetailsBloc
     extends Bloc<ChannelDetailsEvent, ChannelDetailsState> {
   final UserRepository _userRepository;
   final PusherService _pusherService;
+  late StreamSubscription _pusherSubscription;
   ChannelDetailsBloc({
     required UserRepository userRepository,
     required PusherService pusherService,
@@ -73,13 +76,14 @@ class ChannelDetailsBloc
       }
     });
     // pusher listener
-    _pusherService.messagesStreamController.stream.listen((event) {
+    _pusherSubscription =
+        _pusherService.messagesStreamController.stream.listen((event) {
       add(ReceiveChannelMessage(event));
     });
   }
   @override
   Future<void> close() {
-    _pusherService.messagesStreamController.close();
+    _pusherSubscription.cancel();
     return super.close();
   }
 }
