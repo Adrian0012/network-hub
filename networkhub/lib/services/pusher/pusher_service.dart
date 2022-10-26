@@ -24,7 +24,6 @@ class PusherService {
   //============================================================================
   // Pusher Channels
   void initializePusher() async {
-    var x = pusher.connectionState;
     await pusher.init(
       apiKey: EnvironmentConfig.pusherApiKey,
       cluster: EnvironmentConfig.pusherCluster,

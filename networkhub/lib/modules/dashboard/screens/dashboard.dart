@@ -29,6 +29,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
   Widget build(BuildContext context) {
     final String userEmail =
         context.read<AuthenticationBloc>().state.user.email as String;
+    final String userProfileImage =
+        context.read<AuthenticationBloc>().state.user.profileImage as String;
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
       appBar: AppBar(
@@ -58,26 +60,54 @@ class _DashboardScreenState extends State<DashboardScreen> {
       ),
       drawer: SizedBox(
         width: MediaQuery.of(context).size.width * 0.5,
-        child: Drawer(
-          child: ListView(
-            padding: EdgeInsets.zero,
-            children: [
-              DrawerHeader(
-                decoration: const BoxDecoration(
-                  color: Colors.blue,
+        child: ClipRRect(
+          borderRadius: const BorderRadius.only(
+            topRight: Radius.circular(30.0),
+            bottomRight: Radius.circular(30.0),
+          ),
+          child: Drawer(
+            backgroundColor: Theme.of(context).accentColor,
+            child: ListView(
+              padding: EdgeInsets.zero,
+              children: [
+                SizedBox(
+                  height: MediaQuery.of(context).size.width * 0.5,
+                  child: DrawerHeader(
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).primaryColor,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        CircleAvatar(
+                          backgroundImage: NetworkImage(userProfileImage),
+                          radius: 25.0,
+                        ),
+                        Text(userEmail),
+                      ],
+                    ),
+                  ),
                 ),
-                child: Text(userEmail),
-              ),
-              ListTile(
-                leading: const Icon(Icons.logout),
-                title: const Text('Logout'),
-                onTap: () {
-                  context
-                      .read<AuthenticationBloc>()
-                      .add(AuthenticationLogoutRequested());
-                },
-              ),
-            ],
+                ListTile(
+                  leading: const Icon(Icons.coronavirus),
+                  title: const Text('Release Skynet'),
+                  onTap: () {
+                    context
+                        .read<AuthenticationBloc>()
+                        .add(AuthenticationLogoutRequested());
+                  },
+                ),
+                ListTile(
+                  leading: const Icon(Icons.logout),
+                  title: const Text('Logout'),
+                  onTap: () {
+                    context
+                        .read<AuthenticationBloc>()
+                        .add(AuthenticationLogoutRequested());
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),
