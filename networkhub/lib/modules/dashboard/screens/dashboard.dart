@@ -66,7 +66,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             bottomRight: Radius.circular(30.0),
           ),
           child: Drawer(
-            backgroundColor: Theme.of(context).accentColor,
+            backgroundColor: Theme.of(context).colorScheme.secondary,
             child: ListView(
               padding: EdgeInsets.zero,
               children: [
@@ -155,7 +155,7 @@ Widget _buildChatroom(BuildContext context, List<Channel> model) {
       Expanded(
         child: Container(
           decoration: BoxDecoration(
-            color: Theme.of(context).accentColor,
+            color: Theme.of(context).colorScheme.secondary,
             borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(30.0),
               topRight: Radius.circular(30.0),

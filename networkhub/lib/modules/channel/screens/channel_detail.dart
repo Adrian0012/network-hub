@@ -148,7 +148,7 @@ Widget _buildMessage(BuildContext context, ChannelMessage msg, bool isMe) {
     width: MediaQuery.of(context).size.width * 0.75,
     decoration: BoxDecoration(
       color: isMe
-          ? Theme.of(context).accentColor
+          ? Theme.of(context).colorScheme.secondary
           : Color(int.parse(msg.fromUser.userColor as String)),
       borderRadius: isMe
           ? const BorderRadius.only(
@@ -168,7 +168,7 @@ Widget _buildMessage(BuildContext context, ChannelMessage msg, bool isMe) {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text(
-          DateFormat('kk:mm').format(msg.createdAt as DateTime),
+          DateFormat('kk:mm').format(msg.createdAt),
           style: const TextStyle(
             color: Colors.blueGrey,
             fontSize: 16.0,
@@ -176,7 +176,7 @@ Widget _buildMessage(BuildContext context, ChannelMessage msg, bool isMe) {
           ),
         ),
         const SizedBox(height: 8.0),
-        Text(msg.content as String),
+        Text(msg.content),
       ],
     ),
   );

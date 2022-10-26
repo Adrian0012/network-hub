@@ -30,9 +30,9 @@ class _IntroScreenState extends State<IntroScreen> {
     );
   }
 
-  Widget _buildImage(String assetName, [double width = 350]) {
-    return Image.asset('assets/$assetName', width: width);
-  }
+  // Widget _buildImage(String assetName, [double width = 350]) {
+  //   return Image.asset('assets/$assetName', width: width);
+  // }
 
   @override
   Widget build(BuildContext context) {

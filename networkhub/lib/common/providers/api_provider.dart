@@ -112,7 +112,6 @@ class ApiProvider {
         throw 'API GET Channel List Error';
       }
     } else {
-      // TODO send a sentry error
       throw 'API Error';
     }
   }
@@ -139,7 +138,6 @@ class ApiProvider {
         throw 'GET Channel Messages Error';
       }
     } else {
-      // TODO send a sentry error
       throw 'API Error';
     }
   }

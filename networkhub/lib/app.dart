@@ -56,7 +56,8 @@ class AppView extends StatelessWidget {
           ),
           theme: ThemeData(
             primaryColor: Colors.deepPurple,
-            accentColor: Colors.purpleAccent,
+            colorScheme: ColorScheme.fromSwatch()
+                .copyWith(secondary: Colors.purpleAccent),
           ),
         ),
       ),
