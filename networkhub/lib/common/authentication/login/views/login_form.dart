@@ -85,6 +85,7 @@ class _LoginButton extends StatelessWidget {
         return state.status.isSubmissionInProgress
             ? const CircularProgressIndicator()
             : ElevatedButton(
+                // style: Theme.of(context).buttonTheme.,
                 key: const Key('loginForm_continue_raisedButton'),
                 onPressed: state.status.isValidated
                     ? () {

@@ -2,13 +2,13 @@ import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:networkhub/common/authentication/repositories/user_repository.dart';
 import 'package:networkhub/modules/channel/blocs/channel_details_bloc.dart';
 import 'package:networkhub/modules/channel/models/channel.dart';
 import 'package:networkhub/modules/channel/models/channel_message.dart';
 import 'package:networkhub/services/pusher/pusher_service.dart';
 import 'package:networkhub/widgets/chats/message_composer.dart';
+import 'package:networkhub/widgets/common/loading.dart';
 
 class ChannelDetailScreen extends StatefulWidget {
   const ChannelDetailScreen({Key? key, required this.channel})
@@ -78,9 +78,9 @@ class _ChannelDetailScreenState extends State<ChannelDetailScreen> {
         child: BlocBuilder<ChannelDetailsBloc, ChannelDetailsState>(
             builder: (context, state) {
           if (state is ChannelDetailsInitial) {
-            return _buildLoading();
+            return const Loading();
           } else if (state is ChannelDetailsLoading) {
-            return _buildLoading();
+            return const Loading();
           } else if (state is ChannelDetailsLoaded) {
             return _buildChatScreen(context, state.messages, state.channelHash);
           } else {
@@ -199,10 +199,3 @@ Widget _buildMessage(BuildContext context, ChannelMessage msg, bool isMe) {
     ],
   );
 }
-
-Widget _buildLoading() => Center(
-      child: LoadingAnimationWidget.dotsTriangle(
-        color: const Color(0xFF1A1A3F),
-        size: 200,
-      ),
-    );

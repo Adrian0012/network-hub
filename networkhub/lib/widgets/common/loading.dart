@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:networkhub/config/themes/palette.dart';
 
 class Loading extends StatelessWidget {
   const Loading({Key? key}) : super(key: key);
@@ -7,8 +8,10 @@ class Loading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-        child: LoadingAnimationWidget.dotsTriangle(
-      color: const Color(0xFF1A1A3F),
+        child: LoadingAnimationWidget.discreteCircle(
+      color: Palette.primaryColor,
+      secondRingColor: Palette.accentColor,
+      thirdRingColor: Palette.secondaryColor,
       size: 200,
     ));
   }

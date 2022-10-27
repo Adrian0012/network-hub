@@ -5,6 +5,7 @@ import 'package:networkhub/common/authentication/authentication/bloc/authenticat
 import 'package:networkhub/common/authentication/repositories/authentication_repository.dart';
 import 'package:networkhub/common/authentication/repositories/user_repository.dart';
 import 'package:networkhub/config/router.dart';
+import 'package:networkhub/config/themes/themes.dart';
 
 class App extends StatelessWidget {
   const App({Key? key}) : super(key: key);
@@ -54,11 +55,7 @@ class AppView extends StatelessWidget {
           backButtonDispatcher: BeamerBackButtonDispatcher(
             delegate: routerDelegate,
           ),
-          theme: ThemeData(
-            primaryColor: Colors.deepPurple,
-            colorScheme: ColorScheme.fromSwatch()
-                .copyWith(secondary: Colors.purpleAccent),
-          ),
+          theme: Themes.primaryTheme,
         ),
       ),
     );
