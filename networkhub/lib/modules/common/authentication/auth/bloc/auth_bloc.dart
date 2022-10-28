@@ -2,12 +2,12 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:networkhub/common/authentication/models/user.dart';
-import 'package:networkhub/common/authentication/repositories/authentication_repository.dart';
-import 'package:networkhub/common/authentication/repositories/user_repository.dart';
+import 'package:networkhub/modules/common/authentication/models/user.dart';
+import 'package:networkhub/modules/common/authentication/repository/authentication_repository.dart';
+import 'package:networkhub/modules/common/authentication/repository/user_repository.dart';
 
-part 'authentication_event.dart';
-part 'authentication_state.dart';
+part 'auth_event.dart';
+part 'auth_state.dart';
 
 class AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {

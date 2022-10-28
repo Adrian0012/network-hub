@@ -126,7 +126,6 @@ class _RecentChatsState extends State<RecentChats> {
                               const SizedBox(
                                 height: 5.0,
                               ),
-                              // TODO add a operator to handle if the chat has been read or not and do not display the NEW
                               Container(
                                 width: 40.0,
                                 height: 20.0,

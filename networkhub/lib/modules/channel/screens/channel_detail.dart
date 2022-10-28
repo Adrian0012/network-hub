@@ -2,10 +2,10 @@ import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:networkhub/common/authentication/repositories/user_repository.dart';
 import 'package:networkhub/modules/channel/blocs/channel_details_bloc.dart';
 import 'package:networkhub/modules/channel/models/channel.dart';
 import 'package:networkhub/modules/channel/models/channel_message.dart';
+import 'package:networkhub/modules/common/authentication/repository/user_repository.dart';
 import 'package:networkhub/services/pusher/pusher_service.dart';
 import 'package:networkhub/widgets/chats/message_composer.dart';
 import 'package:networkhub/widgets/common/loading.dart';
@@ -84,7 +84,6 @@ class _ChannelDetailScreenState extends State<ChannelDetailScreen> {
           } else if (state is ChannelDetailsLoaded) {
             return _buildChatScreen(context, state.messages, state.channelHash);
           } else {
-            // TODO create an error page
             return Container();
           }
         }),

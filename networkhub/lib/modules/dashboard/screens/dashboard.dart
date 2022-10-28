@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:networkhub/common/authentication/authentication/bloc/authentication_bloc.dart';
 import 'package:networkhub/modules/channel/blocs/channel_bloc.dart';
 import 'package:networkhub/modules/channel/models/channel.dart';
+import 'package:networkhub/modules/common/authentication/auth/bloc/auth_bloc.dart';
 import 'package:networkhub/widgets/chats/category_selector.dart';
 import 'package:networkhub/widgets/chats/recent_chats.dart';
 import 'package:networkhub/widgets/common/loading.dart';
@@ -138,7 +138,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
             } else if (state is ChannelLoaded) {
               return _buildChatroom(context, state.channels);
             } else {
-              // TODO create an error page
               return Container();
             }
           },

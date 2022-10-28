@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:networkhub/common/authentication/models/user.dart';
+import 'package:networkhub/modules/common/authentication/models/user.dart';
 
 part 'channel_message.g.dart';
 

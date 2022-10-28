@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:networkhub/common/authentication/models/user.dart';
+import 'package:networkhub/modules/common/authentication/models/user.dart';
 
 part 'pusher_response.g.dart';
 

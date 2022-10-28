@@ -1,7 +1,8 @@
 import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
-import 'package:networkhub/common/authentication/login/views/login_page.dart';
 import 'package:networkhub/config/urls.dart';
+
+import 'views/login_page.dart';
 
 class LoginLocation extends BeamLocation<BeamState> {
   @override

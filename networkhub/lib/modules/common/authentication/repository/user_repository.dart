@@ -1,15 +1,15 @@
 import 'dart:async';
 
-import 'package:networkhub/common/authentication/models/user.dart';
-import 'package:networkhub/common/providers/api_provider.dart';
+import 'package:networkhub/modules/common/authentication/models/user.dart';
+import 'package:networkhub/modules/common/authentication/provider/auth_provider.dart';
 import 'package:rxdart/subjects.dart';
 
 class UserRepository {
-  final _apiProvider = ApiProvider();
+  final _authProvider = AuthProvider();
   BehaviorSubject<User> userStreamController = BehaviorSubject<User>();
 
   Future<User> getUser() async {
-    final User user = await _apiProvider.getUser();
+    final User user = await _authProvider.getUser();
     userStreamController.add(user);
     return user;
   }
