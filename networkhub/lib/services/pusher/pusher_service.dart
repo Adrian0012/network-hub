@@ -3,7 +3,7 @@
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
-import 'package:networkhub/env_config.dart';
+import 'package:networkhub/environment_config.dart';
 import 'package:networkhub/services/pusher/models/pusher_response.dart';
 import 'package:pusher_beams/pusher_beams.dart';
 import 'package:pusher_channels_flutter/pusher_channels_flutter.dart';

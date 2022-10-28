@@ -1,4 +1,6 @@
+import 'package:networkhub/environment_config.dart';
+
 class RestApiUrls {
   // BASE URL
-  static String baseUrl = const String.fromEnvironment('API_BASE_URL');
+  static String baseUrl = EnvironmentConfig.apiBaseUrl;
 }

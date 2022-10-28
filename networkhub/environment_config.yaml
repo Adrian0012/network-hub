@@ -1,0 +1,42 @@
+environment_config:
+  # path: environment_config.dart # optional, result file path against `lib/` folder
+  # dotenv_path: .env # optional, result file path for .env file against project root folder
+  class: EnvironmentConfig # optional, class name
+  # dev_extension: # optional, by default undefined, allows to specify command option to use extension
+
+  fields: # set of fields for command
+    appENV:
+      type: String
+      const: true
+      default: 'local'
+      config_field: true
+    apiBaseUrl:
+      type: String
+      const: true
+      default: ''
+      config_field: true
+    sentryDSN:
+      type: String
+      const: true
+      default: ''
+      config_field: true
+    pusherApiKey:
+      type: String
+      const: true
+      default: ''
+      config_field: true
+    pusherCluster:
+      type: String
+      const: true
+      default: ''
+      config_field: true
+    pusherChannelName:
+      type: String
+      const: true
+      default: ''
+      config_field: true
+    pusherBeamsInstanceId:
+      type: String
+      const: true
+      default: ''
+      config_field: true

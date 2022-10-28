@@ -46,6 +46,8 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
-.env
-
+# google FCM key
 networkhub/android/app/google-services.json
+Makefile
+# config file
+lib/environment_config.dart

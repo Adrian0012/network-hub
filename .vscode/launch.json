@@ -9,10 +9,6 @@
       "cwd": "networkhub",
       "request": "launch",
       "type": "dart",
-      "toolArgs": [
-        "--dart-define",
-        "API_BASE_URL=https://b9d1-185-16-69-19.ngrok.io"
-    ]
     },
     {
       "name": "LOCAL-Web-networkhub",
@@ -20,10 +16,6 @@
       "request": "launch",
       "type": "dart",
       "args": ["--web-renderer=html"],
-      "toolArgs": [
-        "--dart-define",
-        "API_BASE_URL=https://e9a6-185-16-69-101.ngrok.io"
-    ]
     },
   ]
 }
